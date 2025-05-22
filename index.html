@@ -67,24 +67,25 @@
                     <a href="pages/vendors.html" class="text-green-400 hover:text-green-200 transition">VENDORS</a>
                 </div>
                 
-                <div class="flex items-center space-x-4">
-                    <button id="search-btn" class="text-green-400 hover:text-green-200 transition">
+                <div class="flex items-center space-x-2 md:space-x-4">
+                    <button id="search-btn" class="text-green-400 hover:text-green-200 transition p-2">
                         <i class="fas fa-search"></i>
                     </button>
-                    <button id="login-btn" class="text-green-400 hover:text-green-200 transition">
-                        <i class="fas fa-user-secret mr-1"></i> LOGIN
+                    <!-- Nascondi testo su mobile, mostra solo icone -->
+                    <button id="login-btn" class="text-green-400 hover:text-green-200 transition p-2 hidden sm:inline-flex">
+                        <i class="fas fa-user-secret mr-1"></i> <span class="hidden sm:inline">LOGIN</span>
                     </button>
-                    <button id="register-btn" class="text-green-400 hover:text-green-200 transition">
-                        <i class="fas fa-user-plus mr-1"></i> REGISTER
+                    <button id="register-btn" class="text-green-400 hover:text-green-200 transition p-2 hidden sm:inline-flex">
+                        <i class="fas fa-user-plus mr-1"></i> <span class="hidden sm:inline">REGISTER</span>
                     </button>
-                    <a href="pages/account.html" id="account-link" class="text-green-400 hover:text-green-200 transition hidden">
-                        <i class="fas fa-user-circle mr-1"></i> ACCOUNT
+                    <a href="pages/account.html" id="account-link" class="text-green-400 hover:text-green-200 transition hidden p-2">
+                        <i class="fas fa-user-circle mr-1"></i> <span class="hidden sm:inline">ACCOUNT</span>
                     </a>
-                    <button id="cart-btn" class="relative text-green-400 hover:text-green-200 transition">
-                        <i class="fas fa-shopping-basket mr-1"></i> CART
-                        <span id="cart-count" class="absolute -top-2 -right-2 bg-green-900 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    <button id="cart-btn" class="relative text-green-400 hover:text-green-200 transition p-2">
+                        <i class="fas fa-shopping-basket"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-green-900 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                     </button>
-                    <button id="mobile-menu-btn" class="md:hidden text-green-400 hover:text-green-200 transition">
+                    <button id="mobile-menu-btn" class="md:hidden text-green-400 hover:text-green-200 transition p-2">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
@@ -92,12 +93,36 @@
             
             <!-- Mobile Menu (hidden by default) -->
             <div id="mobile-menu" class="md:hidden hidden bg-black bg-opacity-90 border-t border-green-900">
-                <div class="container mx-auto px-4 py-2">
-                    <div class="flex flex-col space-y-2">
-                        <a href="index.html" class="text-green-400 hover:text-green-200 transition py-2">HOME</a>
-                        <a href="pages/products.html" class="text-green-400 hover:text-green-200 transition py-2">PRODUCTS</a>
-                        <a href="pages/categories.html" class="text-green-400 hover:text-green-200 transition py-2">CATEGORIES</a>
-                        <a href="pages/vendors.html" class="text-green-400 hover:text-green-200 transition py-2">VENDORS</a>
+                <div class="container mx-auto px-4 py-4">
+                    <div class="flex flex-col space-y-3">
+                        <a href="index.html" class="text-green-400 hover:text-green-200 transition py-2 flex items-center">
+                            <i class="fas fa-home mr-3 w-5 text-center"></i>
+                            <span>HOME</span>
+                        </a>
+                        <a href="pages/products.html" class="text-green-400 hover:text-green-200 transition py-2 flex items-center">
+                            <i class="fas fa-box mr-3 w-5 text-center"></i>
+                            <span>PRODUCTS</span>
+                        </a>
+                        <a href="pages/categories.html" class="text-green-400 hover:text-green-200 transition py-2 flex items-center">
+                            <i class="fas fa-tags mr-3 w-5 text-center"></i>
+                            <span>CATEGORIES</span>
+                        </a>
+                        <a href="pages/vendors.html" class="text-green-400 hover:text-green-200 transition py-2 flex items-center">
+                            <i class="fas fa-store mr-3 w-5 text-center"></i>
+                            <span>VENDORS</span>
+                        </a>
+                        
+                        <div class="border-t border-green-900 my-2"></div>
+                        
+                        <!-- Pulsanti login/register visibili su mobile -->
+                        <button id="mobile-login-btn" class="text-green-400 hover:text-green-200 transition py-2 flex items-center text-left">
+                            <i class="fas fa-user-secret mr-3 w-5 text-center"></i>
+                            <span>LOGIN</span>
+                        </button>
+                        <button id="mobile-register-btn" class="text-green-400 hover:text-green-200 transition py-2 flex items-center text-left">
+                            <i class="fas fa-user-plus mr-3 w-5 text-center"></i>
+                            <span>REGISTER</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -140,7 +165,7 @@
                     </div>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                     <!-- Product 1 -->
                     <div class="product-card bg-black bg-opacity-70 rounded-lg overflow-hidden transition-all duration-300">
                         <div class="relative">
@@ -264,19 +289,19 @@
     </div>
 
     <!-- Quick View Modal -->
-    <div id="quick-view-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
-        <div class="bg-black border border-green-900 rounded-lg w-full max-w-4xl p-6 relative">
-            <button id="close-quick-view" class="absolute top-4 right-4 text-gray-400 hover:text-green-400">
-                <i class="fas fa-times"></i>
+    <div id="quick-view-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden overflow-y-auto py-5">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-4xl p-4 sm:p-6 m-4 relative">
+            <button id="close-quick-view" class="absolute top-3 right-3 text-gray-400 hover:text-green-400 p-2 z-10">
+                <i class="fas fa-times text-lg"></i>
             </button>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div>
                     <img id="quick-view-img" src="" alt="Product" class="w-full h-auto rounded">
                 </div>
                 <div>
-                    <h2 id="quick-view-name" class="text-2xl font-bold mb-2"></h2>
-                    <div class="flex items-center mb-4">
+                    <h2 id="quick-view-name" class="text-xl sm:text-2xl font-bold mb-2"></h2>
+                    <div class="flex items-center mb-3 md:mb-4">
                         <div class="flex text-yellow-500 mr-2">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -286,12 +311,12 @@
                         </div>
                         <span class="text-gray-400 text-sm">(24 reviews)</span>
                     </div>
-                    <div class="text-xl font-bold text-green-400 mb-4" id="quick-view-price"></div>
-                    <p id="quick-view-desc" class="text-gray-400 mb-6"></p>
+                    <div class="text-lg sm:text-xl font-bold text-green-400 mb-3 md:mb-4" id="quick-view-price"></div>
+                    <p id="quick-view-desc" class="text-gray-400 mb-4 md:mb-6 text-sm sm:text-base"></p>
                     
-                    <div class="mb-6">
+                    <div class="mb-4 md:mb-6">
                         <h3 class="font-bold mb-2">Specifications:</h3>
-                        <ul class="text-gray-400 space-y-1">
+                        <ul class="text-gray-400 space-y-1 text-sm sm:text-base">
                             <li><i class="fas fa-check-circle text-green-400 mr-2"></i> High-grade encryption</li>
                             <li><i class="fas fa-check-circle text-green-400 mr-2"></i> Secure communications</li>
                             <li><i class="fas fa-check-circle text-green-400 mr-2"></i> Anonymous use</li>
@@ -299,12 +324,12 @@
                         </ul>
                     </div>
                     
-                    <div class="flex space-x-4">
-                        <button id="quick-view-add-btn" class="add-to-cart bg-green-900 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-bold transition flex-grow">
+                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                        <button id="quick-view-add-btn" class="add-to-cart bg-green-900 hover:bg-green-800 text-white px-4 sm:px-6 py-3 rounded-lg font-bold transition w-full sm:flex-grow">
                             <i class="fas fa-cart-plus mr-2"></i> ADD TO CART
                         </button>
-                        <a href="pages/product-detail.html" class="border border-green-900 hover:bg-green-900 hover:bg-opacity-20 text-green-400 px-4 py-3 rounded-lg font-bold transition">
-                            <i class="fas fa-info-circle"></i> DETAILS
+                        <a href="pages/product-detail.html" class="border border-green-900 hover:bg-green-900 hover:bg-opacity-20 text-green-400 px-4 py-3 rounded-lg font-bold transition text-center">
+                            <i class="fas fa-info-circle"></i> <span class="hidden sm:inline">DETAILS</span>
                         </a>
                     </div>
                 </div>
@@ -313,9 +338,9 @@
     </div>
 
     <!-- Login Modal -->
-    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
-        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md p-8 relative">
-            <button id="close-login" class="absolute top-4 right-4 text-gray-400 hover:text-green-400">
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden overflow-y-auto py-5">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md mx-4 p-5 sm:p-8 relative">
+            <button id="close-login" class="absolute top-3 right-3 text-gray-400 hover:text-green-400 p-2">
                 <i class="fas fa-times"></i>
             </button>
             
@@ -359,9 +384,9 @@
     </div>
     
     <!-- Register Modal -->
-    <div id="register-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
-        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md p-8 relative">
-            <button id="close-register" class="absolute top-4 right-4 text-gray-400 hover:text-green-400">
+    <div id="register-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden overflow-y-auto py-5">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md mx-4 p-5 sm:p-8 relative">
+            <button id="close-register" class="absolute top-3 right-3 text-gray-400 hover:text-green-400 p-2">
                 <i class="fas fa-times"></i>
             </button>
             
@@ -467,11 +492,11 @@
     </div>
 
     <!-- Cart Sidebar -->
-    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-black border-l border-green-900 transform translate-x-full transition-transform duration-300 z-50">
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-80 md:w-96 bg-black border-l border-green-900 transform translate-x-full transition-transform duration-300 z-50">
         <div class="p-4 h-full flex flex-col">
-            <div class="flex justify-between items-center mb-4">
+            <div class="flex justify-between items-center mb-4 pb-2 border-b border-green-900">
                 <h2 class="text-xl font-bold">YOUR CART</h2>
-                <button id="close-cart" class="text-gray-400 hover:text-green-400">
+                <button id="close-cart" class="text-gray-400 hover:text-green-400 p-2">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -497,5 +522,6 @@
     
     <script src="js/main.js"></script>
     <script src="js/home.js"></script>
+    <script src="js/mobile-enhancements.js"></script>
 </body>
 </html>
