@@ -437,7 +437,10 @@ class ShoppingCart {
 class AuthModals {
     constructor() {
         this.apiUrl = '/api'; // URL relativo per funzionare in produzione
+        this.currentUser = null;
         this.init();
+        // Verifica lo stato di login all'avvio
+        this.checkLoginStatus();
     }
     
     init() {
@@ -651,7 +654,8 @@ class AuthModals {
             foundUser.lastLogin = new Date().toLocaleDateString();
             foundUser.loginTime = new Date().toISOString();
 
-            // Salva l'utente corrente in localStorage
+            // Salva l'utente corrente sia nella classe che in localStorage
+            this.currentUser = foundUser;
             localStorage.setItem('currentUser', JSON.stringify(foundUser));
 
             // Show success message with admin notification if applicable
@@ -699,22 +703,74 @@ class AuthModals {
     /**
      * Update the UI to reflect the current authentication state
      */
-    updateAuthUI() {
+    /**
+     * Verifica lo stato di login dell'utente all'avvio dell'applicazione
+     * Questo garantisce che lo stato di login persista tra i ricaricamenti della pagina
+     */
+    checkLoginStatus() {
         try {
             const userData = localStorage.getItem('currentUser');
-            const user = userData ? JSON.parse(userData) : null;
+            if (userData) {
+                this.currentUser = JSON.parse(userData);
+                
+                // Verifica che l'utente sia effettivamente loggato
+                if (this.currentUser && this.currentUser.isLoggedIn) {
+                    console.log('Utente già loggato:', this.currentUser.username);
+                    
+                    // Aggiorna subito l'interfaccia
+                    this.updateAuthUI();
+                    
+                    // Ricarica i dati freschi dal server per l'utente corrente (opzionale)
+                    this.refreshUserData();
+                } else {
+                    console.log('Nessun utente loggato');
+                    // Pulisci localStorage se c'è un utente non loggato
+                    localStorage.removeItem('currentUser');
+                    this.currentUser = null;
+                }
+            }
+        } catch (error) {
+            console.error('Errore nel controllo dello stato di login:', error);
+            // In caso di errore, meglio ripulire
+            localStorage.removeItem('currentUser');
+            this.currentUser = null;
+        }
+    }
+    
+    /**
+     * Aggiorna opzionalmente i dati dell'utente dal server
+     * per assicurarsi che siano aggiornati
+     */
+    async refreshUserData() {
+        // In una versione futura, potremmo aggiungere una chiamata al server
+        // per verificare che l'utente sia ancora valido e aggiornare i suoi dati
+    }
+    
+    updateAuthUI() {
+        try {
+            // Usa l'utente memorizzato nella classe se disponibile, altrimenti prendi da localStorage
+            const user = this.currentUser || JSON.parse(localStorage.getItem('currentUser') || 'null');
             
+            // Per il mobile menu
+            const mobileLoginBtn = document.getElementById('mobile-login-btn');
+            const mobileRegisterBtn = document.getElementById('mobile-register-btn');
+            
+            // Per il menu desktop
             const loginBtn = document.getElementById('login-btn');
             const registerBtn = document.getElementById('register-btn');
             const accountLink = document.getElementById('account-link');
             const userMenuBtn = document.getElementById('user-menu-btn');
             
             if (user && user.isLoggedIn) {
-                // User is logged in
+                // User is logged in - nascondi login/register, mostra account
                 if (loginBtn) loginBtn.classList.add('hidden');
                 if (registerBtn) registerBtn.classList.add('hidden');
                 if (accountLink) accountLink.classList.remove('hidden');
                 if (userMenuBtn) userMenuBtn.classList.remove('hidden');
+                
+                // Gestisci anche i pulsanti mobile
+                if (mobileLoginBtn) mobileLoginBtn.classList.add('hidden');
+                if (mobileRegisterBtn) mobileRegisterBtn.classList.add('hidden');
                 
                 // If there's a username display element, update it
                 const usernameDisplay = document.getElementById('username-display');
@@ -722,11 +778,15 @@ class AuthModals {
                     usernameDisplay.textContent = user.username;
                 }
             } else {
-                // User is not logged in
+                // User is not logged in - mostra login/register, nascondi account
                 if (loginBtn) loginBtn.classList.remove('hidden');
                 if (registerBtn) registerBtn.classList.remove('hidden');
                 if (accountLink) accountLink.classList.add('hidden');
                 if (userMenuBtn) userMenuBtn.classList.add('hidden');
+                
+                // Gestisci anche i pulsanti mobile
+                if (mobileLoginBtn) mobileLoginBtn.classList.remove('hidden');
+                if (mobileRegisterBtn) mobileRegisterBtn.classList.remove('hidden');
             }
         } catch (error) {
             console.error('Error updating auth UI:', error);
@@ -819,7 +879,8 @@ class AuthModals {
             newUser.isAdmin = email === 'giacomotronconi@icloud.com';
             newUser.lastLogin = new Date().toISOString();
             
-            // Salva l'utente corrente in localStorage
+            // Salva l'utente corrente sia nella classe che in localStorage
+            this.currentUser = newUser;
             localStorage.setItem('currentUser', JSON.stringify(newUser));
             
             // Aggiorna la cache locale
