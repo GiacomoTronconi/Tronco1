@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail | DARKNET MARKET</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Matrix Background -->
+    <canvas id="matrix-canvas" class="matrix-bg"></canvas>
+
+    <!-- Main App -->
+    <div id="app">
+        <!-- Header -->
+        <header class="border-b border-green-900 bg-black bg-opacity-90 backdrop-blur-sm sticky top-0 z-40">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-green-900 rounded-full flex items-center justify-center">
+                            <i class="fas fa-skull text-xl text-green-400"></i>
+                        </div>
+                        <span class="text-xl font-bold text-green-400">DARKNET<span class="text-white">MARKET</span></span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="../index.html" class="text-green-400 hover:text-green-200 transition">HOME</a>
+                    <a href="products.html" class="text-green-400 hover:text-green-200 transition">PRODUCTS</a>
+                    <a href="categories.html" class="text-green-400 hover:text-green-200 transition">CATEGORIES</a>
+                    <a href="vendors.html" class="text-green-400 hover:text-green-200 transition">VENDORS</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="search-btn" class="text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button id="login-btn" class="text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-user-secret mr-1"></i> LOGIN
+                    </button>
+                    <button id="register-btn" class="text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-user-plus mr-1"></i> REGISTER
+                    </button>
+                    <button id="cart-btn" class="relative text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-shopping-basket mr-1"></i> CART
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-green-900 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="md:hidden text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu (hidden by default) -->
+            <div id="mobile-menu" class="md:hidden hidden bg-black bg-opacity-90 border-t border-green-900">
+                <div class="container mx-auto px-4 py-2">
+                    <div class="flex flex-col space-y-2">
+                        <a href="../index.html" class="text-green-400 hover:text-green-200 transition py-2">HOME</a>
+                        <a href="products.html" class="text-green-400 hover:text-green-200 transition py-2">PRODUCTS</a>
+                        <a href="categories.html" class="text-green-400 hover:text-green-200 transition py-2">CATEGORIES</a>
+                        <a href="vendors.html" class="text-green-400 hover:text-green-200 transition py-2">VENDORS</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Breadcrumbs -->
+        <div class="bg-black bg-opacity-80 border-b border-green-900">
+            <div class="container mx-auto px-4 py-2">
+                <div class="flex items-center text-sm">
+                    <a href="../index.html" class="text-gray-400 hover:text-green-400 transition">Home</a>
+                    <i class="fas fa-chevron-right text-xs mx-2 text-gray-600"></i>
+                    <a href="products.html" class="text-gray-400 hover:text-green-400 transition">Products</a>
+                    <i class="fas fa-chevron-right text-xs mx-2 text-gray-600"></i>
+                    <span class="text-green-400" id="product-title">Encrypted Comms Device</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <!-- Product Gallery -->
+                <div class="product-gallery border border-green-900 rounded-lg overflow-hidden">
+                    <button class="gallery-nav prev bg-black bg-opacity-80 rounded-full w-10 h-10 flex items-center justify-center">
+                        <i class="fas fa-chevron-left text-green-400"></i>
+                    </button>
+                    <button class="gallery-nav next bg-black bg-opacity-80 rounded-full w-10 h-10 flex items-center justify-center">
+                        <i class="fas fa-chevron-right text-green-400"></i>
+                    </button>
+                    
+                    <img src="https://via.placeholder.com/600x400/111111/00ff00?text=PRODUCT+1" alt="Product" class="w-full h-auto gallery-image">
+                    <img src="https://via.placeholder.com/600x400/111111/00ff00?text=PRODUCT+1+ALT" alt="Product" class="w-full h-auto gallery-image hidden">
+                    <img src="https://via.placeholder.com/600x400/111111/00ff00?text=PRODUCT+1+ALT+2" alt="Product" class="w-full h-auto gallery-image hidden">
+                </div>
+                
+                <!-- Product Info -->
+                <div>
+                    <h1 class="text-3xl font-bold mb-2" id="product-name">Encrypted Comms Device</h1>
+                    
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-500 mr-2 rating-stars">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star-half-alt star"></i>
+                        </div>
+                        <span class="text-gray-400 text-sm">(24 reviews)</span>
+                    </div>
+                    
+                    <div class="text-2xl font-bold text-green-400 mb-4" id="product-price">0.05 BTC</div>
+                    
+                    <div class="border-t border-b border-green-900 py-4 mb-6">
+                        <p class="text-gray-300 mb-4" id="product-description">
+                            Military-grade encryption for secure communications. This advanced device ensures your conversations remain completely private in any environment, using quantum-resistant encryption algorithms and frequency-hopping spread spectrum technology to prevent interception.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <span class="text-gray-400">Vendor:</span>
+                                <a href="vendor-detail.html?id=1" class="text-green-400 hover:underline ml-2">CryptoSolutions</a>
+                            </div>
+                            <div>
+                                <span class="text-gray-400">Category:</span>
+                                <a href="categories.html?cat=security" class="text-green-400 hover:underline ml-2">Security</a>
+                            </div>
+                            <div>
+                                <span class="text-gray-400">Stock:</span>
+                                <span class="text-green-400 ml-2">In Stock</span>
+                            </div>
+                            <div>
+                                <span class="text-gray-400">Shipping:</span>
+                                <span class="text-green-400 ml-2">Worldwide</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="font-bold mb-3">Quantity:</h3>
+                        <div class="quantity-controls flex items-center">
+                            <button type="button" class="decrease-quantity px-3 py-1 bg-black border border-green-900 hover:border-green-400 rounded-l">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" value="1" min="1" class="quantity-input w-16 px-3 py-1 bg-black border-t border-b border-green-900 text-center" readonly>
+                            <button type="button" class="increase-quantity px-3 py-1 bg-black border border-green-900 hover:border-green-400 rounded-r">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button id="add-to-cart-btn" class="add-to-cart bg-green-900 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-bold transition flex-grow" data-id="1" data-name="Encrypted Comms Device" data-price="0.05" data-img="https://via.placeholder.com/600x400/111111/00ff00?text=PRODUCT+1">
+                            <i class="fas fa-cart-plus mr-2"></i> ADD TO CART
+                        </button>
+                        <button id="wishlist-btn" class="wishlist-toggle border border-green-900 hover:bg-green-900 hover:bg-opacity-20 text-green-400 px-4 py-3 rounded-lg font-bold transition" data-id="1" data-name="Encrypted Comms Device" data-price="0.05" data-img="https://via.placeholder.com/600x400/111111/00ff00?text=PRODUCT+1">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button id="share-btn" class="share-product border border-green-900 hover:bg-green-900 hover:bg-opacity-20 text-green-400 px-4 py-3 rounded-lg font-bold transition">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Details Tabs -->
+            <div class="mb-12">
+                <div class="border-b border-green-900 flex">
+                    <button class="tab-btn py-3 px-6 border-b-2 border-green-400 text-green-400 font-bold" data-tab="description">Description</button>
+                    <button class="tab-btn py-3 px-6 text-gray-400 hover:text-green-200 transition" data-tab="specifications">Specifications</button>
+                    <button class="tab-btn py-3 px-6 text-gray-400 hover:text-green-200 transition" data-tab="reviews">Reviews (24)</button>
+                </div>
+                
+                <div class="p-6 border border-green-900 border-t-0">
+                    <div id="description-tab" class="tab-content">
+                        <p class="mb-4">
+                            Our Encrypted Comms Device represents the pinnacle of secure communication technology. Designed for individuals who value their privacy above all else, this device ensures your conversations remain completely confidential.
+                        </p>
+                        <p class="mb-4">
+                            Using advanced quantum-resistant encryption algorithms and frequency-hopping spread spectrum technology, the device creates a secure communication channel that's virtually impossible to intercept or decrypt. All data is encrypted end-to-end, with no logs or records of your communications ever stored.
+                        </p>
+                        <p>
+                            The device operates on an independent network, completely separate from conventional telecommunications infrastructure, ensuring total anonymity and security for all your sensitive communications.
+                        </p>
+                    </div>
+                    
+                    <div id="specifications-tab" class="tab-content hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="font-bold mb-3 text-green-400">Technical Specifications</h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                        <span>256-bit quantum-resistant encryption</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                        <span>Frequency-hopping spread spectrum</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                        <span>RF shielding to prevent signal leakage</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                        <span>Anti-tamper circuitry with self-destruct feature</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                        <span>Battery life: 72 hours standby, 8 hours active use</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-3 text-green-400">Package Contents</h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                        <span>Encrypted communication device</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                        <span>Secure charging adapter</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                        <span>Faraday bag for storage</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                        <span>User manual (encrypted PDF)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                        <span>Activation key (one-time use)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="reviews-tab" class="tab-content hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="col-span-1 md:col-span-2">
+                                <!-- Review Items -->
+                                <div class="space-y-6">
+                                    <div class="border-b border-green-900 pb-6">
+                                        <div class="flex justify-between mb-2">
+                                            <div class="flex items-center">
+                                                <div class="w-8 h-8 bg-green-900 rounded-full flex items-center justify-center mr-2">
+                                                    <i class="fas fa-user text-xs"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Anonymous_1337</div>
+                                                    <div class="text-xs text-gray-400">Posted 2 weeks ago</div>
+                                                </div>
+                                            </div>
+                                            <div class="flex text-yellow-500">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-300">
+                                            Excellent device. Completely secure and reliable. Used it in multiple high-risk areas with no issues. Definitely worth the price.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="border-b border-green-900 pb-6">
+                                        <div class="flex justify-between mb-2">
+                                            <div class="flex items-center">
+                                                <div class="w-8 h-8 bg-green-900 rounded-full flex items-center justify-center mr-2">
+                                                    <i class="fas fa-user text-xs"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">ShadowOperator</div>
+                                                    <div class="text-xs text-gray-400">Posted 1 month ago</div>
+                                                </div>
+                                            </div>
+                                            <div class="flex text-yellow-500">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-300">
+                                            Battery life is slightly less than advertised, but otherwise performs as expected. Encryption is top-notch.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <!-- Review Summary -->
+                                <div class="border border-green-900 rounded-lg p-4">
+                                    <h3 class="font-bold mb-3 text-center">Review Summary</h3>
+                                    <div class="flex items-center justify-center text-2xl text-yellow-500 mb-2">
+                                        <span class="mr-2">4.5</span>
+                                        <div class="flex">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-center text-gray-400 mb-4">Based on 24 reviews</p>
+                                    
+                                    <div class="space-y-2">
+                                        <div class="flex items-center">
+                                            <span class="text-xs w-8">5 ★</span>
+                                            <div class="flex-grow h-2 bg-gray-800 rounded mx-2">
+                                                <div class="h-full bg-green-500 rounded" style="width: 75%"></div>
+                                            </div>
+                                            <span class="text-xs w-8 text-right">18</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span class="text-xs w-8">4 ★</span>
+                                            <div class="flex-grow h-2 bg-gray-800 rounded mx-2">
+                                                <div class="h-full bg-green-500 rounded" style="width: 15%"></div>
+                                            </div>
+                                            <span class="text-xs w-8 text-right">4</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span class="text-xs w-8">3 ★</span>
+                                            <div class="flex-grow h-2 bg-gray-800 rounded mx-2">
+                                                <div class="h-full bg-green-500 rounded" style="width: 8%"></div>
+                                            </div>
+                                            <span class="text-xs w-8 text-right">2</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span class="text-xs w-8">2 ★</span>
+                                            <div class="flex-grow h-2 bg-gray-800 rounded mx-2">
+                                                <div class="h-full bg-green-500 rounded" style="width: 0%"></div>
+                                            </div>
+                                            <span class="text-xs w-8 text-right">0</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span class="text-xs w-8">1 ★</span>
+                                            <div class="flex-grow h-2 bg-gray-800 rounded mx-2">
+                                                <div class="h-full bg-green-500 rounded" style="width: 0%"></div>
+                                            </div>
+                                            <span class="text-xs w-8 text-right">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Related Products -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold border-l-4 border-green-500 pl-4 mb-8">RELATED PRODUCTS</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Related Product 1 -->
+                    <div class="product-card bg-black bg-opacity-70 rounded-lg overflow-hidden transition-all duration-300">
+                        <div class="relative">
+                            <img src="https://via.placeholder.com/400x300/111111/00ff00?text=RELATED+1" alt="Product" class="w-full h-48 object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300 quick-view">
+                                <button class="quick-view-btn bg-green-900 hover:bg-green-800 text-white px-3 py-2 rounded" data-id="5" data-name="Crypto Hardware Wallet" data-price="0.03" data-img="https://via.placeholder.com/400x300/111111/00ff00?text=RELATED+1" data-desc="Securely store your cryptocurrency offline with this hardware wallet.">
+                                    <i class="fas fa-eye mr-1"></i> QUICK VIEW
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg mb-1">Crypto Hardware Wallet</h3>
+                            <p class="text-gray-400 text-sm mb-3">Secure offline storage for digital assets</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-green-400 font-bold">0.03 BTC</span>
+                                <div class="flex space-x-2">
+                                    <a href="product-detail.html?id=5" class="text-gray-400 hover:text-green-400 transition">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                    <button class="add-to-cart bg-green-900 hover:bg-green-800 text-white px-3 py-1 rounded text-sm transition" data-id="5" data-name="Crypto Hardware Wallet" data-price="0.03" data-img="https://via.placeholder.com/400x300/111111/00ff00?text=RELATED+1">
+                                        <i class="fas fa-cart-plus mr-1"></i> ADD
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Related Product 2 -->
+                    <div class="product-card bg-black bg-opacity-70 rounded-lg overflow-hidden transition-all duration-300">
+                        <div class="relative">
+                            <img src="https://via.placeholder.com/400x300/111111/00ff00?text=RELATED+2" alt="Product" class="w-full h-48 object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300 quick-view">
+                                <button class="quick-view-btn bg-green-900 hover:bg-green-800 text-white px-3 py-2 rounded" data-id="6" data-name="Secure Messenger App" data-price="0.01" data-img="https://via.placeholder.com/400x300/111111/00ff00?text=RELATED+2" data-desc="End-to-end encrypted messaging app with self-destructing messages.">
+                                    <i class="fas fa-eye mr-1"></i> QUICK VIEW
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg mb-1">Secure Messenger App</h3>
+                            <p class="text-gray-400 text-sm mb-3">End-to-end encrypted messaging</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-green-400 font-bold">0.01 BTC</span>
+                                <div class="flex space-x-2">
+                                    <a href="product-detail.html?id=6" class="text-gray-400 hover:text-green-400 transition">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                    <button class="add-to-cart bg-green-900 hover:bg-green-800 text-white px-3 py-1 rounded text-sm transition" data-id="6" data-name="Secure Messenger App" data-price="0.01" data-img="https://via.placeholder.com/400x300/111111/00ff00?text=RELATED+2">
+                                        <i class="fas fa-cart-plus mr-1"></i> ADD
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-black bg-opacity-90 border-t border-green-900 py-8">
+            <div class="container mx-auto px-4">
+                <div class="text-center">
+                    <p class="text-gray-500 text-sm">© 2023 DARKNET MARKET. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-black border-l border-green-900 z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Your Cart</h2>
+                <button id="close-cart" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div id="cart-items" class="mb-6">
+                <!-- Cart items will be dynamically inserted here -->
+                <div class="text-center py-8 text-gray-500">
+                    <i class="fas fa-shopping-basket text-4xl mb-3"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+            <div class="border-t border-green-900 pt-4">
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-400">Subtotal:</span>
+                    <span id="cart-subtotal" class="font-bold">0.00 BTC</span>
+                </div>
+                <div class="flex justify-between mb-4">
+                    <span class="text-gray-400">Shipping:</span>
+                    <span id="cart-shipping" class="font-bold">0.00 BTC</span>
+                </div>
+                <div class="flex justify-between text-lg font-bold mb-6">
+                    <span>Total:</span>
+                    <span id="cart-total" class="text-green-400">0.00 BTC</span>
+                </div>
+                <button id="checkout-btn" class="w-full bg-green-900 hover:bg-green-800 text-white font-bold py-3 px-4 rounded mb-3 transition duration-300">
+                    PROCEED TO CHECKOUT
+                </button>
+                <button id="continue-shopping" class="w-full border border-green-900 text-green-400 hover:bg-green-900 hover:bg-opacity-20 font-bold py-3 px-4 rounded transition duration-300">
+                    CONTINUE SHOPPING
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md p-6 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white" id="close-login">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="text-2xl font-bold mb-6">Login</h2>
+            <form id="login-form">
+                <div class="mb-4">
+                    <label for="login-username" class="block text-gray-400 mb-2">Username</label>
+                    <input type="text" id="login-username" class="w-full bg-black border border-green-900 rounded p-3 focus:border-green-400 focus:outline-none" required>
+                </div>
+                <div class="mb-6">
+                    <label for="login-password" class="block text-gray-400 mb-2">Password</label>
+                    <input type="password" id="login-password" class="w-full bg-black border border-green-900 rounded p-3 focus:border-green-400 focus:outline-none" required>
+                </div>
+                <button type="submit" class="w-full bg-green-900 hover:bg-green-800 text-white font-bold py-3 px-4 rounded mb-3 transition duration-300">
+                    LOGIN
+                </button>
+                <div class="text-center mt-4">
+                    <p class="text-gray-400">Don't have an account? <button type="button" id="switch-to-register" class="text-green-400 hover:underline">Register</button></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md p-6 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white" id="close-register">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="text-2xl font-bold mb-6">Register</h2>
+            <form id="register-form">
+                <div class="mb-4">
+                    <label for="register-username" class="block text-gray-400 mb-2">Username</label>
+                    <input type="text" id="register-username" class="w-full bg-black border border-green-900 rounded p-3 focus:border-green-400 focus:outline-none" required>
+                </div>
+                <div class="mb-4">
+                    <label for="register-email" class="block text-gray-400 mb-2">Email</label>
+                    <input type="email" id="register-email" class="w-full bg-black border border-green-900 rounded p-3 focus:border-green-400 focus:outline-none" required>
+                </div>
+                <div class="mb-4">
+                    <label for="register-password" class="block text-gray-400 mb-2">Password</label>
+                    <input type="password" id="register-password" class="w-full bg-black border border-green-900 rounded p-3 focus:border-green-400 focus:outline-none" required>
+                </div>
+                <div class="mb-6">
+                    <label for="register-confirm-password" class="block text-gray-400 mb-2">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" class="w-full bg-black border border-green-900 rounded p-3 focus:border-green-400 focus:outline-none" required>
+                </div>
+                <button type="submit" class="w-full bg-green-900 hover:bg-green-800 text-white font-bold py-3 px-4 rounded mb-3 transition duration-300">
+                    REGISTER
+                </button>
+                <div class="text-center mt-4">
+                    <p class="text-gray-400">Already have an account? <button type="button" id="switch-to-login" class="text-green-400 hover:underline">Login</button></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center hidden">
+        <button id="close-search" class="absolute top-6 right-6 text-gray-400 hover:text-white text-2xl">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="w-full max-w-3xl px-4">
+            <form id="search-form">
+                <div class="relative">
+                    <input type="text" id="search-input" class="w-full bg-transparent border-b-2 border-green-900 text-xl md:text-2xl py-4 pr-12 focus:outline-none focus:border-green-400" placeholder="Search for products..." autocomplete="off">
+                    <button type="submit" class="absolute right-0 top-0 h-full px-4 text-green-400">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                </div>
+            </form>
+            <div class="mt-8">
+                <h3 class="text-gray-400 mb-4">Popular Searches:</h3>
+                <div class="flex flex-wrap gap-2">
+                    <a href="products.html?search=encryption" class="bg-black border border-green-900 hover:bg-green-900 hover:bg-opacity-20 rounded px-3 py-1 text-sm">Encryption</a>
+                    <a href="products.html?search=vpn" class="bg-black border border-green-900 hover:bg-green-900 hover:bg-opacity-20 rounded px-3 py-1 text-sm">VPN</a>
+                    <a href="products.html?search=security" class="bg-black border border-green-900 hover:bg-green-900 hover:bg-opacity-20 rounded px-3 py-1 text-sm">Security</a>
+                    <a href="products.html?search=privacy" class="bg-black border border-green-900 hover:bg-green-900 hover:bg-opacity-20 rounded px-3 py-1 text-sm">Privacy</a>
+                    <a href="products.html?search=anonymous" class="bg-black border border-green-900 hover:bg-green-900 hover:bg-opacity-20 rounded px-3 py-1 text-sm">Anonymous</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // Login and register buttons
+            const loginBtn = document.getElementById('login-btn');
+            const registerBtn = document.getElementById('register-btn');
+            const loginModal = document.getElementById('login-modal');
+            const registerModal = document.getElementById('register-modal');
+            const closeLogin = document.getElementById('close-login');
+            const closeRegister = document.getElementById('close-register');
+            const switchToRegister = document.getElementById('switch-to-register');
+            const switchToLogin = document.getElementById('switch-to-login');
+            
+            if (loginBtn && loginModal) {
+                loginBtn.addEventListener('click', function() {
+                    loginModal.classList.remove('hidden');
+                });
+            }
+            
+            if (registerBtn && registerModal) {
+                registerBtn.addEventListener('click', function() {
+                    registerModal.classList.remove('hidden');
+                });
+            }
+            
+            if (closeLogin) {
+                closeLogin.addEventListener('click', function() {
+                    loginModal.classList.add('hidden');
+                });
+            }
+            
+            if (closeRegister) {
+                closeRegister.addEventListener('click', function() {
+                    registerModal.classList.add('hidden');
+                });
+            }
+            
+            if (switchToRegister) {
+                switchToRegister.addEventListener('click', function() {
+                    loginModal.classList.add('hidden');
+                    registerModal.classList.remove('hidden');
+                });
+            }
+            
+            if (switchToLogin) {
+                switchToLogin.addEventListener('click', function() {
+                    registerModal.classList.add('hidden');
+                    loginModal.classList.remove('hidden');
+                });
+            }
+            
+            // Cart button functionality
+            const cartBtn = document.getElementById('cart-btn');
+            const cartSidebar = document.getElementById('cart-sidebar');
+            const closeCart = document.getElementById('close-cart');
+            const continueShopping = document.getElementById('continue-shopping');
+            
+            if (cartBtn && cartSidebar) {
+                cartBtn.addEventListener('click', function() {
+                    cartSidebar.style.transform = 'translateX(0)';
+                });
+            }
+            
+            if (closeCart) {
+                closeCart.addEventListener('click', function() {
+                    cartSidebar.style.transform = 'translateX(100%)';
+                });
+            }
+            
+            if (continueShopping) {
+                continueShopping.addEventListener('click', function() {
+                    cartSidebar.style.transform = 'translateX(100%)';
+                });
+            }
+            // Quantity controls
+            const quantityInput = document.querySelector('.quantity-input');
+            const decreaseBtn = document.querySelector('.decrease-quantity');
+            const increaseBtn = document.querySelector('.increase-quantity');
+            const addToCartBtn = document.getElementById('add-to-cart-btn');
+            const wishlistBtn = document.getElementById('wishlist-btn');
+            const shareBtn = document.getElementById('share-btn');
+            
+            // Handle quantity decrease
+            if (decreaseBtn) {
+                decreaseBtn.addEventListener('click', function() {
+                    let currentValue = parseInt(quantityInput.value);
+                    if (currentValue > 1) {
+                        quantityInput.value = currentValue - 1;
+                    }
+                });
+            }
+            
+            // Handle quantity increase
+            if (increaseBtn) {
+                increaseBtn.addEventListener('click', function() {
+                    let currentValue = parseInt(quantityInput.value);
+                    quantityInput.value = currentValue + 1;
+                });
+            }
+            
+            // Toggle wishlist
+            if (wishlistBtn) {
+                wishlistBtn.addEventListener('click', function() {
+                    const icon = wishlistBtn.querySelector('i');
+                    icon.classList.toggle('far');
+                    icon.classList.toggle('fas');
+                    
+                    // Toggle red color for active state
+                    if (icon.classList.contains('fas')) {
+                        wishlistBtn.classList.add('text-red-500');
+                        console.log('Added to wishlist');
+                    } else {
+                        wishlistBtn.classList.remove('text-red-500');
+                        console.log('Removed from wishlist');
+                    }
+                });
+            }
+            
+            // Share product
+            if (shareBtn && navigator.share) {
+                shareBtn.addEventListener('click', async function() {
+                    try {
+                        await navigator.share({
+                            title: document.getElementById('product-name').textContent,
+                            text: 'Check out this product on Darknet Market',
+                            url: window.location.href,
+                        });
+                    } catch (err) {
+                        // Fallback for browsers that don't support Web Share API
+                        copyToClipboard(window.location.href);
+                        showFeedback(shareBtn, 'Link copied!');
+                    }
+                });
+            } else if (shareBtn) {
+                // Fallback for browsers that don't support Web Share API
+                shareBtn.addEventListener('click', function() {
+                    copyToClipboard(window.location.href);
+                    showFeedback(shareBtn, 'Link copied!');
+                });
+            }
+            
+            // Helper function to copy text to clipboard
+            function copyToClipboard(text) {
+                const tempInput = document.createElement('input');
+                document.body.appendChild(tempInput);
+                tempInput.value = text;
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+            }
+            
+            // Helper function to show feedback
+            function showFeedback(element, message) {
+                const originalText = element.innerHTML;
+                element.innerHTML = `<i class="fas fa-check"></i> ${message}`;
+                setTimeout(() => {
+                    element.innerHTML = originalText;
+                }, 2000);
+            }
+            
+            // Tab functionality
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabName = button.getAttribute('data-tab');
+                    
+                    // Update button styles
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('border-b-2', 'border-green-400', 'text-green-400');
+                        btn.classList.add('text-gray-400');
+                    });
+                    
+                    button.classList.remove('text-gray-400');
+                    button.classList.add('border-b-2', 'border-green-400', 'text-green-400');
+                    
+                    // Show corresponding tab content
+                    document.querySelectorAll('.tab-content').forEach(tab => {
+                        tab.classList.add('hidden');
+                    });
+                    
+                    const tabToShow = document.getElementById(`${tabName}-tab`);
+                    if (tabToShow) {
+                        tabToShow.classList.remove('hidden');
+                    }
+                });
+            });
+            
+            // Show first tab by default
+            if (tabButtons.length > 0) {
+                tabButtons[0].click();
+            }
+        });
+        
+        // URL parameter handling
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            // In a real application, you would fetch product details from a database
+            // For this demo, we'll just update the product info based on the ID
+            if (productId) {
+                // This would be replaced with a fetch to get product details
+                console.log(`Loading product with ID: ${productId}`);
+                
+                // Example of updating product info based on query parameters
+                // In a real app, this would be dynamic data from an API
+                if (productId === "2") {
+                    document.getElementById('product-name').textContent = "Anonymous VPN";
+                    document.getElementById('product-title').textContent = "Anonymous VPN";
+                    document.getElementById('product-price').textContent = "0.02 BTC";
+                    document.getElementById('product-description').textContent = "No-log VPN with TOR integration. Masks your IP and encrypts all traffic with military-grade encryption.";
+                    document.querySelector('.gallery-image').src = "https://via.placeholder.com/600x400/111111/00ff00?text=PRODUCT+2";
+                }
+            }
+        });
+    </script>
+</body>
+</html>

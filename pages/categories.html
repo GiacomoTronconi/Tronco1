@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories | DARKNET MARKET</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Matrix Background -->
+    <canvas id="matrix-canvas" class="matrix-bg"></canvas>
+
+    <!-- Main App -->
+    <div id="app">
+        <!-- Header -->
+        <header class="border-b border-green-900 bg-black bg-opacity-90 backdrop-blur-sm sticky top-0 z-40">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-green-900 rounded-full flex items-center justify-center">
+                            <i class="fas fa-skull text-xl text-green-400"></i>
+                        </div>
+                        <span class="text-xl font-bold text-green-400">DARKNET<span class="text-white">MARKET</span></span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="../index.html" class="text-green-400 hover:text-green-200 transition">HOME</a>
+                    <a href="products.html" class="text-green-400 hover:text-green-200 transition">PRODUCTS</a>
+                    <a href="categories.html" class="text-green-400 hover:text-green-200 transition border-b-2 border-green-400">CATEGORIES</a>
+                    <a href="vendors.html" class="text-green-400 hover:text-green-200 transition">VENDORS</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="search-btn" class="text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button id="login-btn" class="text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-user-secret mr-1"></i> LOGIN
+                    </button>
+                    <button id="register-btn" class="text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-user-plus mr-1"></i> REGISTER
+                    </button>
+                    <a href="account.html" id="account-link" class="text-green-400 hover:text-green-200 transition hidden">
+                        <i class="fas fa-user-circle mr-1"></i> ACCOUNT
+                    </a>
+                    <button id="cart-btn" class="relative text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-shopping-basket mr-1"></i> CART
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-green-900 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="md:hidden text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu (hidden by default) -->
+            <div id="mobile-menu" class="md:hidden hidden bg-black bg-opacity-90 border-t border-green-900">
+                <div class="container mx-auto px-4 py-2">
+                    <div class="flex flex-col space-y-2">
+                        <a href="../index.html" class="text-green-400 hover:text-green-200 transition py-2">HOME</a>
+                        <a href="products.html" class="text-green-400 hover:text-green-200 transition py-2">PRODUCTS</a>
+                        <a href="categories.html" class="text-green-400 hover:text-green-200 transition py-2">CATEGORIES</a>
+                        <a href="vendors.html" class="text-green-400 hover:text-green-200 transition py-2">VENDORS</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Breadcrumbs -->
+        <div class="bg-black bg-opacity-80 border-b border-green-900">
+            <div class="container mx-auto px-4 py-2">
+                <div class="flex items-center text-sm">
+                    <a href="../index.html" class="text-gray-400 hover:text-green-400 transition">HOME</a>
+                    <i class="fas fa-chevron-right text-xs mx-2 text-gray-600"></i>
+                    <span class="text-green-400">CATEGORIES</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold mb-8 text-center">PRODUCT CATEGORIES</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Category 1 -->
+                <div class="bg-black bg-opacity-70 border border-green-900 rounded-lg overflow-hidden hover:border-green-400 transition">
+                    <div class="p-6">
+                        <div class="w-16 h-16 rounded-full bg-green-900 flex items-center justify-center mb-4">
+                            <i class="fas fa-key text-2xl text-green-400"></i>
+                        </div>
+                        <h2 class="text-xl font-bold mb-2">Security & Encryption</h2>
+                        <p class="text-gray-400 mb-4">Secure communication devices, encryption software, and privacy tools.</p>
+                        <a href="#" class="text-green-400 hover:text-green-200 transition flex items-center">
+                            <span>VIEW PRODUCTS</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Category 2 -->
+                <div class="bg-black bg-opacity-70 border border-green-900 rounded-lg overflow-hidden hover:border-green-400 transition">
+                    <div class="p-6">
+                        <div class="w-16 h-16 rounded-full bg-green-900 flex items-center justify-center mb-4">
+                            <i class="fas fa-mask text-2xl text-green-400"></i>
+                        </div>
+                        <h2 class="text-xl font-bold mb-2">Identity Protection</h2>
+                        <p class="text-gray-400 mb-4">Anonymous identities, digital footprint reduction, and obfuscation tools.</p>
+                        <a href="#" class="text-green-400 hover:text-green-200 transition flex items-center">
+                            <span>VIEW PRODUCTS</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Category 3 -->
+                <div class="bg-black bg-opacity-70 border border-green-900 rounded-lg overflow-hidden hover:border-green-400 transition">
+                    <div class="p-6">
+                        <div class="w-16 h-16 rounded-full bg-green-900 flex items-center justify-center mb-4">
+                            <i class="fas fa-shield-alt text-2xl text-green-400"></i>
+                        </div>
+                        <h2 class="text-xl font-bold mb-2">Digital Defense</h2>
+                        <p class="text-gray-400 mb-4">Protection from surveillance, anti-tracking tools, and digital countermeasures.</p>
+                        <a href="#" class="text-green-400 hover:text-green-200 transition flex items-center">
+                            <span>VIEW PRODUCTS</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Category 4 -->
+                <div class="bg-black bg-opacity-70 border border-green-900 rounded-lg overflow-hidden hover:border-green-400 transition">
+                    <div class="p-6">
+                        <div class="w-16 h-16 rounded-full bg-green-900 flex items-center justify-center mb-4">
+                            <i class="fas fa-server text-2xl text-green-400"></i>
+                        </div>
+                        <h2 class="text-xl font-bold mb-2">Secure Hosting</h2>
+                        <p class="text-gray-400 mb-4">Anonymous hosting solutions, encrypted servers, and secure cloud storage.</p>
+                        <a href="#" class="text-green-400 hover:text-green-200 transition flex items-center">
+                            <span>VIEW PRODUCTS</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Category 5 -->
+                <div class="bg-black bg-opacity-70 border border-green-900 rounded-lg overflow-hidden hover:border-green-400 transition">
+                    <div class="p-6">
+                        <div class="w-16 h-16 rounded-full bg-green-900 flex items-center justify-center mb-4">
+                            <i class="fas fa-network-wired text-2xl text-green-400"></i>
+                        </div>
+                        <h2 class="text-xl font-bold mb-2">Network Tools</h2>
+                        <p class="text-gray-400 mb-4">VPNs, proxies, Tor enhancers, and other network privacy tools.</p>
+                        <a href="#" class="text-green-400 hover:text-green-200 transition flex items-center">
+                            <span>VIEW PRODUCTS</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Category 6 -->
+                <div class="bg-black bg-opacity-70 border border-green-900 rounded-lg overflow-hidden hover:border-green-400 transition">
+                    <div class="p-6">
+                        <div class="w-16 h-16 rounded-full bg-green-900 flex items-center justify-center mb-4">
+                            <i class="fas fa-bug text-2xl text-green-400"></i>
+                        </div>
+                        <h2 class="text-xl font-bold mb-2">Privacy Hardware</h2>
+                        <p class="text-gray-400 mb-4">Physical security devices, surveillance detectors, and secure communication hardware.</p>
+                        <a href="#" class="text-green-400 hover:text-green-200 transition flex items-center">
+                            <span>VIEW PRODUCTS</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md p-8 relative">
+            <button id="close-login" class="absolute top-4 right-4 text-gray-400 hover:text-green-400">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-secret text-2xl text-green-400"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Secure Login</h2>
+                <p class="text-gray-400 text-sm mt-2">All connections encrypted with AES-256</p>
+            </div>
+            
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label for="login-username" class="block text-sm font-medium mb-1">USERNAME</label>
+                    <input type="text" id="login-username" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label for="login-password" class="block text-sm font-medium mb-1">PASSWORD</label>
+                    <input type="password" id="login-password" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" class="rounded text-green-400 focus:ring-0">
+                        <label for="remember" class="ml-2 text-sm">Remember me</label>
+                    </div>
+                    <a href="#" class="text-sm text-green-400 hover:text-green-200">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="w-full bg-green-900 hover:bg-green-800 text-white p-3 rounded-lg font-bold transition mt-2">
+                    SECURE LOGIN
+                </button>
+                
+                <div class="text-center text-sm mt-4">
+                    <span class="text-gray-400">Need an account?</span>
+                    <button type="button" id="switch-to-register" class="text-green-400 hover:text-green-200 ml-1">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Register Modal -->
+    <div id="register-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md p-8 relative">
+            <button id="close-register" class="absolute top-4 right-4 text-gray-400 hover:text-green-400">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-plus text-2xl text-green-400"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Secure Registration</h2>
+                <p class="text-gray-400 text-sm mt-2">Create an anonymous account with zero tracking</p>
+            </div>
+            
+            <form id="register-form" class="space-y-4">
+                <div>
+                    <label for="register-username" class="block text-sm font-medium mb-1">USERNAME</label>
+                    <input type="text" id="register-username" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label for="register-email" class="block text-sm font-medium mb-1">EMAIL (ENCRYPTED)</label>
+                    <input type="email" id="register-email" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label for="register-password" class="block text-sm font-medium mb-1">PASSWORD</label>
+                    <input type="password" id="register-password" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label for="register-confirm-password" class="block text-sm font-medium mb-1">CONFIRM PASSWORD</label>
+                    <input type="password" id="register-confirm-password" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="terms" class="rounded text-green-400 focus:ring-0">
+                    <label for="terms" class="ml-2 text-sm">I agree to the <a href="#" class="text-green-400 hover:text-green-200">Terms & Conditions</a></label>
+                </div>
+                
+                <button type="submit" class="w-full bg-green-900 hover:bg-green-800 text-white p-3 rounded-lg font-bold transition mt-2">
+                    CREATE SECURE ACCOUNT
+                </button>
+                
+                <div class="text-center text-sm mt-4">
+                    <span class="text-gray-400">Already have an account?</span>
+                    <button type="button" id="switch-to-login" class="text-green-400 hover:text-green-200 ml-1">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 bg-black bg-opacity-95 z-50 hidden">
+        <div class="container mx-auto px-4 py-16">
+            <div class="flex justify-end mb-8">
+                <button id="close-search" class="text-gray-400 hover:text-green-400 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-4 text-center">ENCRYPTED SEARCH</h2>
+                    <div class="relative">
+                        <input type="text" placeholder="Search for products, vendors, categories..." class="w-full bg-black border-b-2 border-green-400 py-3 px-4 text-xl focus:outline-none">
+                        <button class="absolute right-0 top-0 h-full px-4 text-green-400">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="font-bold mb-3 border-b border-green-900 pb-2">POPULAR SEARCHES</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Encrypted Communications</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Anonymous VPN</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Identity Protection</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Secure Messaging</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-bold mb-3 border-b border-green-900 pb-2">CATEGORIES</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Security Devices</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Encryption Tools</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Privacy Software</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Secure Hardware</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-bold mb-3 border-b border-green-900 pb-2">VENDORS</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">CryptoSecure</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Phantom Digital</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">BlackNet Systems</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">ShadowTech</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-black border-l border-green-900 transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-4 h-full flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">YOUR CART</h2>
+                <button id="close-cart" class="text-gray-400 hover:text-green-400">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="flex-grow overflow-auto">
+                <!-- Cart items will be dynamically added here -->
+                <div class="text-center text-gray-400 py-8">
+                    Your cart is empty
+                </div>
+            </div>
+            
+            <div class="border-t border-green-900 pt-4 mt-auto">
+                <div class="flex justify-between mb-2">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">0.00 BTC</span>
+                </div>
+                <a href="checkout.html" class="block bg-green-900 hover:bg-green-800 text-white text-center rounded-lg py-3 font-bold transition mt-2">
+                    SECURE CHECKOUT
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md p-8 relative">
+            <button id="close-login" class="absolute top-4 right-4 text-gray-400 hover:text-green-400">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-secret text-2xl text-green-400"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Secure Login</h2>
+                <p class="text-gray-400 text-sm mt-2">All connections encrypted with AES-256</p>
+            </div>
+            
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label for="login-username" class="block text-sm font-medium mb-1">USERNAME</label>
+                    <input type="text" id="login-username" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label for="login-password" class="block text-sm font-medium mb-1">PASSWORD</label>
+                    <input type="password" id="login-password" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" class="rounded text-green-400 focus:ring-0">
+                        <label for="remember" class="ml-2 text-sm">Remember me</label>
+                    </div>
+                    <a href="#" class="text-sm text-green-400 hover:text-green-200">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="w-full bg-green-900 hover:bg-green-800 text-white p-3 rounded-lg font-bold transition mt-2">
+                    SECURE LOGIN
+                </button>
+                
+                <div class="text-center text-sm mt-4">
+                    <span class="text-gray-400">Need an account?</span>
+                    <button type="button" id="switch-to-register" class="text-green-400 hover:text-green-200 ml-1">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Register Modal -->
+    <div id="register-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md p-8 relative">
+            <button id="close-register" class="absolute top-4 right-4 text-gray-400 hover:text-green-400">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-plus text-2xl text-green-400"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Secure Registration</h2>
+                <p class="text-gray-400 text-sm mt-2">Create an anonymous account with zero tracking</p>
+            </div>
+            
+            <form id="register-form" class="space-y-4">
+                <div>
+                    <label for="register-username" class="block text-sm font-medium mb-1">USERNAME</label>
+                    <input type="text" id="register-username" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label for="register-email" class="block text-sm font-medium mb-1">EMAIL (ENCRYPTED)</label>
+                    <input type="email" id="register-email" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label for="register-password" class="block text-sm font-medium mb-1">PASSWORD</label>
+                    <input type="password" id="register-password" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label for="register-confirm-password" class="block text-sm font-medium mb-1">CONFIRM PASSWORD</label>
+                    <input type="password" id="register-confirm-password" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="terms" class="rounded text-green-400 focus:ring-0">
+                    <label for="terms" class="ml-2 text-sm">I agree to the <a href="#" class="text-green-400 hover:text-green-200">Terms & Conditions</a></label>
+                </div>
+                
+                <button type="submit" class="w-full bg-green-900 hover:bg-green-800 text-white p-3 rounded-lg font-bold transition mt-2">
+                    CREATE SECURE ACCOUNT
+                </button>
+                
+                <div class="text-center text-sm mt-4">
+                    <span class="text-gray-400">Already have an account?</span>
+                    <button type="button" id="switch-to-login" class="text-green-400 hover:text-green-200 ml-1">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 bg-black bg-opacity-95 z-50 hidden">
+        <div class="container mx-auto px-4 py-16">
+            <div class="flex justify-end mb-8">
+                <button id="close-search" class="text-gray-400 hover:text-green-400 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-4 text-center">ENCRYPTED SEARCH</h2>
+                    <div class="relative">
+                        <input type="text" placeholder="Search for products, vendors, categories..." class="w-full bg-black border-b-2 border-green-400 py-3 px-4 text-xl focus:outline-none">
+                        <button class="absolute right-0 top-0 h-full px-4 text-green-400">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="font-bold mb-3 border-b border-green-900 pb-2">POPULAR SEARCHES</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Encrypted Communications</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Anonymous VPN</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Identity Protection</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Secure Messaging</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-bold mb-3 border-b border-green-900 pb-2">CATEGORIES</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Security Devices</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Encryption Tools</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Privacy Software</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Secure Hardware</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-bold mb-3 border-b border-green-900 pb-2">VENDORS</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">CryptoSecure</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Phantom Digital</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">BlackNet Systems</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">ShadowTech</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-black border-l border-green-900 transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-4 h-full flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">YOUR CART</h2>
+                <button id="close-cart" class="text-gray-400 hover:text-green-400">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="flex-grow overflow-auto">
+                <!-- Cart items will be dynamically added here -->
+                <div class="text-center text-gray-400 py-8">
+                    Your cart is empty
+                </div>
+            </div>
+            
+            <div class="border-t border-green-900 pt-4 mt-auto">
+                <div class="flex justify-between mb-2">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">0.00 BTC</span>
+                </div>
+                <a href="checkout.html" class="block bg-green-900 hover:bg-green-800 text-white text-center rounded-lg py-3 font-bold transition mt-2">
+                    SECURE CHECKOUT
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

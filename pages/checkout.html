@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | DARKNET MARKET</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Matrix Background -->
+    <canvas id="matrix-canvas" class="matrix-bg"></canvas>
+
+    <!-- Main App -->
+    <div id="app">
+        <!-- Header -->
+        <header class="border-b border-green-900 bg-black bg-opacity-90 backdrop-blur-sm sticky top-0 z-40">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-green-900 rounded-full flex items-center justify-center">
+                            <i class="fas fa-skull text-xl text-green-400"></i>
+                        </div>
+                        <span class="text-xl font-bold text-green-400">DARKNET<span class="text-white">MARKET</span></span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="../index.html" class="text-green-400 hover:text-green-200 transition">HOME</a>
+                    <a href="products.html" class="text-green-400 hover:text-green-200 transition">PRODUCTS</a>
+                    <a href="categories.html" class="text-green-400 hover:text-green-200 transition">CATEGORIES</a>
+                    <a href="vendors.html" class="text-green-400 hover:text-green-200 transition">VENDORS</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="search-btn" class="text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button id="login-btn" class="text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-user-secret mr-1"></i> LOGIN
+                    </button>
+                    <button id="register-btn" class="text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-user-plus mr-1"></i> REGISTER
+                    </button>
+                    <button id="cart-btn" class="relative text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-shopping-basket mr-1"></i> CART
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-green-900 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu (hidden by default) -->
+            <div id="mobile-menu" class="md:hidden hidden bg-black bg-opacity-90 border-t border-green-900">
+                <div class="container mx-auto px-4 py-2">
+                    <div class="flex flex-col space-y-2">
+                        <a href="../index.html" class="text-green-400 hover:text-green-200 transition py-2">HOME</a>
+                        <a href="products.html" class="text-green-400 hover:text-green-200 transition py-2">PRODUCTS</a>
+                        <a href="categories.html" class="text-green-400 hover:text-green-200 transition py-2">CATEGORIES</a>
+                        <a href="vendors.html" class="text-green-400 hover:text-green-200 transition py-2">VENDORS</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Breadcrumbs -->
+        <div class="bg-black bg-opacity-80 border-b border-green-900">
+            <div class="container mx-auto px-4 py-2">
+                <div class="flex items-center text-sm">
+                    <a href="../index.html" class="text-gray-400 hover:text-green-400 transition">Home</a>
+                    <i class="fas fa-chevron-right text-xs mx-2 text-gray-600"></i>
+                    <a href="products.html" class="text-gray-400 hover:text-green-400 transition">Cart</a>
+                    <i class="fas fa-chevron-right text-xs mx-2 text-gray-600"></i>
+                    <span class="text-green-400">Checkout</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold mb-6 text-center text-green-400">SECURE CHECKOUT</h1>
+            
+            <!-- Checkout Progress -->
+            <div class="checkout-progress max-w-3xl mx-auto mb-10">
+                <div class="checkout-step active">
+                    <div class="step-number">1</div>
+                    <div class="text-sm">Order Details</div>
+                </div>
+                <div class="checkout-step">
+                    <div class="step-number">2</div>
+                    <div class="text-sm">Shipping</div>
+                </div>
+                <div class="checkout-step">
+                    <div class="step-number">3</div>
+                    <div class="text-sm">Payment</div>
+                </div>
+                <div class="checkout-step">
+                    <div class="step-number">4</div>
+                    <div class="text-sm">Confirmation</div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2">
+                    <!-- Step 1: Order Details -->
+                    <div id="step-1-content" class="checkout-content bg-black bg-opacity-70 border border-green-900 rounded-lg p-6 mb-6">
+                        <h2 class="text-xl font-bold mb-4 border-b border-green-900 pb-2">Order Summary</h2>
+                        
+                        <div class="space-y-4 mb-6" id="checkout-items">
+                            <!-- Items will be populated from cart -->
+                            <div class="flex justify-between items-center p-4 border border-green-900 rounded-lg">
+                                <div class="flex items-center">
+                                    <img src="https://via.placeholder.com/80x80/111111/00ff00?text=PRODUCT+1" alt="Product" class="w-16 h-16 object-cover rounded mr-4">
+                                    <div>
+                                        <h3 class="font-bold">Encrypted Comms Device</h3>
+                                        <p class="text-sm text-gray-400">Quantity: 1</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-green-400">0.05 BTC</div>
+                                    <button class="text-xs text-red-500 hover:text-red-400 mt-1">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end">
+                            <button class="next-step bg-green-900 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-bold transition">
+                                Continue to Shipping <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Shipping -->
+                    <div id="step-2-content" class="checkout-content bg-black bg-opacity-70 border border-green-900 rounded-lg p-6 mb-6 hidden">
+                        <h2 class="text-xl font-bold mb-4 border-b border-green-900 pb-2">Shipping Information</h2>
+                        
+                        <form class="space-y-4 mb-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">First Name</label>
+                                    <input type="text" class="w-full bg-black border border-green-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-green-500" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Last Name</label>
+                                    <input type="text" class="w-full bg-black border border-green-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-green-500" required>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Email Address</label>
+                                <input type="email" class="w-full bg-black border border-green-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-green-500" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Address</label>
+                                <input type="text" class="w-full bg-black border border-green-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-green-500" required>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">City</label>
+                                    <input type="text" class="w-full bg-black border border-green-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-green-500" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Country</label>
+                                    <select class="w-full bg-black border border-green-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-green-500" required>
+                                        <option value="">Select Country</option>
+                                        <option value="us">United States</option>
+                                        <option value="ca">Canada</option>
+                                        <option value="uk">United Kingdom</option>
+                                        <option value="au">Australia</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Zip Code</label>
+                                    <input type="text" class="w-full bg-black border border-green-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-green-500" required>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Shipping Method</label>
+                                <div class="space-y-2">
+                                    <div class="flex items-center p-3 border border-green-900 rounded-lg hover:border-green-500 cursor-pointer">
+                                        <input type="radio" name="shipping" id="shipping-standard" class="mr-3" checked>
+                                        <label for="shipping-standard" class="flex-grow">
+                                            <div class="font-medium">Standard Shipping</div>
+                                            <div class="text-sm text-gray-400">7-14 business days</div>
+                                        </label>
+                                        <div class="font-bold">Free</div>
+                                    </div>
+                                    <div class="flex items-center p-3 border border-green-900 rounded-lg hover:border-green-500 cursor-pointer">
+                                        <input type="radio" name="shipping" id="shipping-express" class="mr-3">
+                                        <label for="shipping-express" class="flex-grow">
+                                            <div class="font-medium">Express Shipping</div>
+                                            <div class="text-sm text-gray-400">3-5 business days</div>
+                                        </label>
+                                        <div class="font-bold">0.01 BTC</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div class="flex justify-between">
+                            <button class="prev-step border border-green-900 hover:bg-green-900 hover:bg-opacity-20 text-green-400 px-6 py-3 rounded-lg font-bold transition">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button class="next-step bg-green-900 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-bold transition">
+                                Continue to Payment <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Payment -->
+                    <div id="step-3-content" class="checkout-content bg-black bg-opacity-70 border border-green-900 rounded-lg p-6 mb-6 hidden">
+                        <h2 class="text-xl font-bold mb-4 border-b border-green-900 pb-2">Payment Method</h2>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="payment-method flex items-center p-4 border border-green-900 rounded-lg hover:border-green-500 cursor-pointer">
+                                <input type="radio" name="payment" id="payment-bitcoin" class="mr-3" checked>
+                                <label for="payment-bitcoin" class="flex items-center flex-grow">
+                                    <i class="fab fa-bitcoin text-2xl mr-3"></i>
+                                    <div>
+                                        <div class="font-medium">Bitcoin</div>
+                                        <div class="text-sm text-gray-400">Pay with BTC</div>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="payment-method flex items-center p-4 border border-green-900 rounded-lg hover:border-green-500 cursor-pointer">
+                                <input type="radio" name="payment" id="payment-monero" class="mr-3">
+                                <label for="payment-monero" class="flex items-center flex-grow">
+                                    <i class="fab fa-monero text-2xl mr-3"></i>
+                                    <div>
+                                        <div class="font-medium">Monero</div>
+                                        <div class="text-sm text-gray-400">Pay with XMR</div>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="payment-method flex items-center p-4 border border-green-900 rounded-lg hover:border-green-500 cursor-pointer">
+                                <input type="radio" name="payment" id="payment-ethereum" class="mr-3">
+                                <label for="payment-ethereum" class="flex items-center flex-grow">
+                                    <i class="fab fa-ethereum text-2xl mr-3"></i>
+                                    <div>
+                                        <div class="font-medium">Ethereum</div>
+                                        <div class="text-sm text-gray-400">Pay with ETH</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between">
+                            <button class="prev-step border border-green-900 hover:bg-green-900 hover:bg-opacity-20 text-green-400 px-6 py-3 rounded-lg font-bold transition">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button class="next-step bg-green-900 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-bold transition">
+                                Complete Order <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4: Confirmation -->
+                    <div id="step-4-content" class="checkout-content bg-black bg-opacity-70 border border-green-900 rounded-lg p-6 mb-6 hidden">
+                        <div class="text-center py-8">
+                            <div class="w-16 h-16 bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-check text-2xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold mb-2">Order Successfully Placed!</h2>
+                            <p class="text-gray-400 mb-6">Your order has been received and is now being processed</p>
+                            
+                            <div class="mb-8 inline-block bg-gray-900 bg-opacity-50 rounded-lg p-4">
+                                <div class="text-sm text-gray-400 mb-1">Order Number:</div>
+                                <div class="font-mono text-green-400 font-bold">#D4RKN3T-2023-9281</div>
+                            </div>
+                            
+                            <div class="max-w-md mx-auto mb-8 bg-gray-900 bg-opacity-50 rounded-lg p-4">
+                                <div class="text-sm mb-2">Please send exactly <span class="text-green-400 font-bold">0.05 BTC</span> to the following address:</div>
+                                <div class="font-mono text-xs bg-black p-2 rounded mb-2 overflow-x-auto">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</div>
+                                <div class="text-xs text-gray-500">Your order will be processed once payment is confirmed</div>
+                            </div>
+                            
+                            <a href="../index.html" class="bg-green-900 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-bold transition inline-block">
+                                <i class="fas fa-home mr-2"></i> Return to Homepage
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Summary Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-black bg-opacity-70 border border-green-900 rounded-lg p-6 sticky top-24">
+                        <h2 class="text-xl font-bold mb-4 border-b border-green-900 pb-2">Order Summary</h2>
+                        
+                        <div class="space-y-3 mb-6">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Subtotal:</span>
+                                <span id="order-subtotal">0.05 BTC</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Shipping:</span>
+                                <span id="order-shipping">0.00 BTC</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Tax:</span>
+                                <span id="order-tax">0.00 BTC</span>
+                            </div>
+                            <div class="flex justify-between text-lg font-bold pt-3 border-t border-green-900">
+                                <span>Total:</span>
+                                <span class="text-green-400" id="order-total">0.05 BTC</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="text-sm text-gray-400">
+                                <i class="fas fa-shield-alt text-green-400 mr-2"></i>
+                                All transactions are secured with multi-signature escrow
+                            </div>
+                            <div class="text-sm text-gray-400">
+                                <i class="fas fa-user-secret text-green-400 mr-2"></i>
+                                Your identity and shipping details are encrypted
+                            </div>
+                            <div class="text-sm text-gray-400">
+                                <i class="fas fa-truck text-green-400 mr-2"></i>
+                                Discreet shipping with stealth packaging
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-black bg-opacity-90 border-t border-green-900 py-8">
+            <div class="container mx-auto px-4">
+                <div class="text-center">
+                    <p class="text-gray-500 text-sm">© 2023 DARKNET MARKET. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-black border-l border-green-900 z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Your Cart</h2>
+                <button id="close-cart" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div id="cart-items" class="mb-6">
+                <!-- Cart items will be dynamically inserted here -->
+                <div class="text-center py-8 text-gray-500">
+                    <i class="fas fa-shopping-basket text-4xl mb-3"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+            <div class="border-t border-green-900 pt-4">
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-400">Subtotal:</span>
+                    <span id="cart-subtotal" class="font-bold">0.00 BTC</span>
+                </div>
+                <div class="flex justify-between mb-4">
+                    <span class="text-gray-400">Shipping:</span>
+                    <span id="cart-shipping" class="font-bold">0.00 BTC</span>
+                </div>
+                <div class="flex justify-between text-lg font-bold mb-6">
+                    <span>Total:</span>
+                    <span id="cart-total" class="text-green-400">0.00 BTC</span>
+                </div>
+                <button id="checkout-btn" class="w-full bg-green-900 hover:bg-green-800 text-white font-bold py-3 px-4 rounded mb-3 transition duration-300">
+                    PROCEED TO CHECKOUT
+                </button>
+                <button id="continue-shopping" class="w-full border border-green-900 text-green-400 hover:bg-green-900 hover:bg-opacity-20 font-bold py-3 px-4 rounded transition duration-300">
+                    CONTINUE SHOPPING
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md p-6 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white" id="close-login">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="text-2xl font-bold mb-6">Login</h2>
+            <form id="login-form">
+                <div class="mb-4">
+                    <label for="login-username" class="block text-gray-400 mb-2">Username</label>
+                    <input type="text" id="login-username" class="w-full bg-black border border-green-900 rounded p-3 focus:border-green-400 focus:outline-none" required>
+                </div>
+                <div class="mb-6">
+                    <label for="login-password" class="block text-gray-400 mb-2">Password</label>
+                    <input type="password" id="login-password" class="w-full bg-black border border-green-900 rounded p-3 focus:border-green-400 focus:outline-none" required>
+                </div>
+                <button type="submit" class="w-full bg-green-900 hover:bg-green-800 text-white font-bold py-3 px-4 rounded mb-3 transition duration-300">
+                    LOGIN
+                </button>
+                <div class="text-center mt-4">
+                    <p class="text-gray-400">Don't have an account? <button type="button" id="switch-to-register" class="text-green-400 hover:underline">Register</button></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md p-6 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white" id="close-register">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="text-2xl font-bold mb-6">Register</h2>
+            <form id="register-form">
+                <div class="mb-4">
+                    <label for="register-username" class="block text-gray-400 mb-2">Username</label>
+                    <input type="text" id="register-username" class="w-full bg-black border border-green-900 rounded p-3 focus:border-green-400 focus:outline-none" required>
+                </div>
+                <div class="mb-4">
+                    <label for="register-email" class="block text-gray-400 mb-2">Email</label>
+                    <input type="email" id="register-email" class="w-full bg-black border border-green-900 rounded p-3 focus:border-green-400 focus:outline-none" required>
+                </div>
+                <div class="mb-4">
+                    <label for="register-password" class="block text-gray-400 mb-2">Password</label>
+                    <input type="password" id="register-password" class="w-full bg-black border border-green-900 rounded p-3 focus:border-green-400 focus:outline-none" required>
+                </div>
+                <div class="mb-6">
+                    <label for="register-confirm-password" class="block text-gray-400 mb-2">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" class="w-full bg-black border border-green-900 rounded p-3 focus:border-green-400 focus:outline-none" required>
+                </div>
+                <button type="submit" class="w-full bg-green-900 hover:bg-green-800 text-white font-bold py-3 px-4 rounded mb-3 transition duration-300">
+                    REGISTER
+                </button>
+                <div class="text-center mt-4">
+                    <p class="text-gray-400">Already have an account? <button type="button" id="switch-to-login" class="text-green-400 hover:underline">Login</button></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center hidden">
+        <button id="close-search" class="absolute top-6 right-6 text-gray-400 hover:text-white text-2xl">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="w-full max-w-3xl px-4">
+            <form id="search-form">
+                <div class="relative">
+                    <input type="text" id="search-input" class="w-full bg-transparent border-b-2 border-green-900 text-xl md:text-2xl py-4 pr-12 focus:outline-none focus:border-green-400" placeholder="Search for products..." autocomplete="off">
+                    <button type="submit" class="absolute right-0 top-0 h-full px-4 text-green-400">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                </div>
+            </form>
+            <div class="mt-8">
+                <h3 class="text-gray-400 mb-4">Popular Searches:</h3>
+                <div class="flex flex-wrap gap-2">
+                    <a href="products.html?search=encryption" class="bg-black border border-green-900 hover:bg-green-900 hover:bg-opacity-20 rounded px-3 py-1 text-sm">Encryption</a>
+                    <a href="products.html?search=vpn" class="bg-black border border-green-900 hover:bg-green-900 hover:bg-opacity-20 rounded px-3 py-1 text-sm">VPN</a>
+                    <a href="products.html?search=security" class="bg-black border border-green-900 hover:bg-green-900 hover:bg-opacity-20 rounded px-3 py-1 text-sm">Security</a>
+                    <a href="products.html?search=privacy" class="bg-black border border-green-900 hover:bg-green-900 hover:bg-opacity-20 rounded px-3 py-1 text-sm">Privacy</a>
+                    <a href="products.html?search=anonymous" class="bg-black border border-green-900 hover:bg-green-900 hover:bg-opacity-20 rounded px-3 py-1 text-sm">Anonymous</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // Login and register buttons
+            const loginBtn = document.getElementById('login-btn');
+            const registerBtn = document.getElementById('register-btn');
+            const loginModal = document.getElementById('login-modal');
+            const registerModal = document.getElementById('register-modal');
+            const closeLogin = document.getElementById('close-login');
+            const closeRegister = document.getElementById('close-register');
+            const switchToRegister = document.getElementById('switch-to-register');
+            const switchToLogin = document.getElementById('switch-to-login');
+            
+            if (loginBtn && loginModal) {
+                loginBtn.addEventListener('click', function() {
+                    loginModal.classList.remove('hidden');
+                });
+            }
+            
+            if (registerBtn && registerModal) {
+                registerBtn.addEventListener('click', function() {
+                    registerModal.classList.remove('hidden');
+                });
+            }
+            
+            if (closeLogin) {
+                closeLogin.addEventListener('click', function() {
+                    loginModal.classList.add('hidden');
+                });
+            }
+            
+            if (closeRegister) {
+                closeRegister.addEventListener('click', function() {
+                    registerModal.classList.add('hidden');
+                });
+            }
+            
+            if (switchToRegister) {
+                switchToRegister.addEventListener('click', function() {
+                    loginModal.classList.add('hidden');
+                    registerModal.classList.remove('hidden');
+                });
+            }
+            
+            if (switchToLogin) {
+                switchToLogin.addEventListener('click', function() {
+                    registerModal.classList.add('hidden');
+                    loginModal.classList.remove('hidden');
+                });
+            }
+            
+            // Login and register form submission
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Demo login - just show success message
+                    alert('Login successful! (This is a demo)');
+                    loginModal.classList.add('hidden');
+                });
+            }
+            
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Demo registration - just show success message
+                    alert('Registration successful! (This is a demo)');
+                    registerModal.classList.add('hidden');
+                });
+            }
+            
+            // Cart button functionality
+            const cartBtn = document.getElementById('cart-btn');
+            const cartSidebar = document.getElementById('cart-sidebar');
+            const closeCart = document.getElementById('close-cart');
+            const continueShopping = document.getElementById('continue-shopping');
+            
+            if (cartBtn && cartSidebar) {
+                cartBtn.addEventListener('click', function() {
+                    cartSidebar.style.transform = 'translateX(0)';
+                });
+            }
+            
+            if (closeCart) {
+                closeCart.addEventListener('click', function() {
+                    cartSidebar.style.transform = 'translateX(100%)';
+                });
+            }
+            
+            if (continueShopping) {
+                continueShopping.addEventListener('click', function() {
+                    cartSidebar.style.transform = 'translateX(100%)';
+                });
+            }
+            
+            // Checkout steps functionality
+            const nextButtons = document.querySelectorAll('.next-step');
+            const prevButtons = document.querySelectorAll('.prev-step');
+            const checkoutSteps = document.querySelectorAll('.checkout-step');
+            const checkoutContents = document.querySelectorAll('.checkout-content');
+            
+            let currentStep = 1;
+            
+            function showStep(stepNumber) {
+                // Update step indicators
+                checkoutSteps.forEach((step, index) => {
+                    if (index < stepNumber) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active');
+                    }
+                });
+                
+                // Show the correct content section
+                checkoutContents.forEach((content, index) => {
+                    if (index + 1 === stepNumber) {
+                        content.classList.remove('hidden');
+                    } else {
+                        content.classList.add('hidden');
+                    }
+                });
+            }
+            
+            nextButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (currentStep < 4) {
+                        currentStep++;
+                        showStep(currentStep);
+                    }
+                });
+            });
+            
+            prevButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (currentStep > 1) {
+                        currentStep--;
+                        showStep(currentStep);
+                    }
+                });
+            });
+            
+            // Search overlay functionality
+            const searchBtn = document.getElementById('search-btn');
+            const searchOverlay = document.getElementById('search-overlay');
+            const closeSearch = document.getElementById('close-search');
+            
+            if (searchBtn && searchOverlay) {
+                searchBtn.addEventListener('click', function() {
+                    searchOverlay.classList.remove('hidden');
+                });
+            }
+            
+            if (closeSearch) {
+                closeSearch.addEventListener('click', function() {
+                    searchOverlay.classList.add('hidden');
+                });
+            }
+            // Initialize checkout from cart data
+            const cart = new ShoppingCart();
+            const items = cart.getItems();
+            const checkoutItems = document.getElementById('checkout-items');
+            
+            if (checkoutItems) {
+                if (items.length === 0) {
+                    // Redirect to cart if no items
+                    window.location.href = '../index.html';
+                    return;
+                }
+                
+                // Populate checkout items
+                checkoutItems.innerHTML = '';
+                items.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'flex justify-between items-center p-4 border border-green-900 rounded-lg';
+                    itemElement.innerHTML = `
+                        <div class="flex items-center">
+                            <img src="${item.img || 'https://via.placeholder.com/80x80/111111/00ff00?text=PRODUCT'}" alt="${item.name}" class="w-16 h-16 object-cover rounded mr-4">
+                            <div>
+                                <h3 class="font-bold">${item.name}</h3>
+                                <p class="text-sm text-gray-400">Quantity: ${item.quantity}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-green-400">${(item.price * item.quantity).toFixed(2)} BTC</div>
+                            <button class="text-xs text-red-500 hover:text-red-400 mt-1 remove-item" data-id="${item.id}">Remove</button>
+                        </div>
+                    `;
+                    checkoutItems.appendChild(itemElement);
+                });
+                
+                // Update totals
+                const subtotal = cart.getTotalPrice();
+                document.getElementById('order-subtotal').textContent = subtotal.toFixed(2) + ' BTC';
+                document.getElementById('order-total').textContent = subtotal.toFixed(2) + ' BTC';
+                
+                // Add remove item functionality
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const id = button.getAttribute('data-id');
+                        cart.items = cart.items.filter(item => item.id !== id);
+                        cart.saveCart();
+                        
+                        if (cart.items.length === 0) {
+                            window.location.href = '../index.html';
+                            return;
+                        }
+                        
+                        window.location.reload();
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

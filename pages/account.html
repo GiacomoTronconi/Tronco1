@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account | DARKNET MARKET</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Matrix Background -->
+    <canvas id="matrix-canvas" class="matrix-bg"></canvas>
+
+    <!-- Main App -->
+    <div id="app">
+        <!-- Header -->
+        <header class="border-b border-green-900 bg-black bg-opacity-90 backdrop-blur-sm sticky top-0 z-40">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-green-900 rounded-full flex items-center justify-center">
+                            <i class="fas fa-skull text-xl text-green-400"></i>
+                        </div>
+                        <span class="text-xl font-bold text-green-400">DARKNET<span class="text-white">MARKET</span></span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="../index.html" class="text-green-400 hover:text-green-200 transition">HOME</a>
+                    <a href="products.html" class="text-green-400 hover:text-green-200 transition">PRODUCTS</a>
+                    <a href="categories.html" class="text-green-400 hover:text-green-200 transition">CATEGORIES</a>
+                    <a href="vendors.html" class="text-green-400 hover:text-green-200 transition">VENDORS</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="search-btn" class="text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button id="user-menu-btn" class="text-green-400 hover:text-green-200 transition flex items-center">
+                        <i class="fas fa-user-circle mr-1"></i>
+                        <span class="username">User</span>
+                        <i class="fas fa-caret-down ml-1"></i>
+                    </button>
+                    <button id="cart-btn" class="relative text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-shopping-basket mr-1"></i> CART
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-green-900 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="md:hidden text-green-400 hover:text-green-200 transition">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu (hidden by default) -->
+            <div id="mobile-menu" class="md:hidden hidden bg-black bg-opacity-90 border-t border-green-900">
+                <div class="container mx-auto px-4 py-2">
+                    <div class="flex flex-col">
+                        <a href="../index.html" class="text-green-400 hover:text-green-200 transition py-2">HOME</a>
+                        <a href="products.html" class="text-green-400 hover:text-green-200 transition py-2">PRODUCTS</a>
+                        <a href="categories.html" class="text-green-400 hover:text-green-200 transition py-2">CATEGORIES</a>
+                        <a href="vendors.html" class="text-green-400 hover:text-green-200 transition py-2">VENDORS</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <!-- Account Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-black bg-opacity-70 border border-green-900 rounded-lg p-6">
+                        <div class="text-center mb-6">
+                            <div class="relative w-24 h-24 mx-auto mb-3">
+                                <div id="profile-image-container" class="w-24 h-24 bg-green-900 rounded-full flex items-center justify-center overflow-hidden">
+                                    <img id="profile-image" class="w-full h-full object-cover hidden" src="" alt="Profile">
+                                    <i id="profile-icon" class="fas fa-user-alt text-4xl text-green-400"></i>
+                                </div>
+                                <button id="change-profile-image" class="absolute bottom-0 right-0 bg-green-800 hover:bg-green-700 text-white rounded-full w-8 h-8 flex items-center justify-center transition">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-bold username-display">Username</h2>
+                                <span class="inline-block bg-green-900 px-2 py-1 rounded-full text-xs">Verified User</span>
+                            </div>
+                        </div>
+                        
+                        <nav class="space-y-1">
+                            <button class="w-full text-left p-3 rounded transition account-nav-item active" data-section="overview">
+                                <i class="fas fa-tachometer-alt mr-2"></i> Overview
+                            </button>
+                            <button class="w-full text-left p-3 rounded transition account-nav-item" data-section="profile">
+                                <i class="fas fa-user-edit mr-2"></i> Profile Settings
+                            </button>
+                            <button class="w-full text-left p-3 rounded transition account-nav-item" data-section="orders">
+                                <i class="fas fa-box mr-2"></i> Orders
+                            </button>
+                            <button class="w-full text-left p-3 rounded transition account-nav-item" data-section="security">
+                                <i class="fas fa-shield-alt mr-2"></i> Security
+                            </button>
+                            <button class="w-full text-left p-3 rounded transition account-nav-item" data-section="addresses">
+                                <i class="fas fa-map-marker-alt mr-2"></i> Addresses
+                            </button>
+                            
+                            <!-- Admin Section - Initially Hidden -->
+                            <div id="admin-nav-section" class="hidden">
+                                <div class="border-t border-green-900 my-3 py-2">
+                                    <p class="text-green-400 text-xs uppercase font-bold mb-2 pl-3 pt-1">Admin Panel</p>
+                                </div>
+                                <button class="w-full text-left p-3 rounded transition account-nav-item" data-section="admin-products">
+                                    <i class="fas fa-box mr-2"></i> Manage Products
+                                </button>
+                                <button class="w-full text-left p-3 rounded transition account-nav-item" data-section="admin-vendors">
+                                    <i class="fas fa-store mr-2"></i> Manage Vendors
+                                </button>
+                                <button class="w-full text-left p-3 rounded transition account-nav-item" data-section="admin-users">
+                                    <i class="fas fa-users mr-2"></i> Manage Users
+                                </button>
+                                <button class="w-full text-left p-3 rounded transition account-nav-item" data-section="admin-orders">
+                                    <i class="fas fa-clipboard-list mr-2"></i> All Orders
+                                </button>
+                            </div>
+                            
+                            <button id="logout-btn" class="w-full text-left p-3 rounded transition text-red-400 hover:bg-red-900 hover:bg-opacity-20">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+                
+                <!-- Account Content -->
+                <div class="lg:col-span-3">
+                    <div class="bg-black bg-opacity-70 border border-green-900 rounded-lg p-6">
+                        <!-- Account Sections (Only one will be visible at a time) -->
+                        
+                        <!-- Overview Section -->
+                        <section id="overview-section" class="account-section">
+                            <h2 class="text-2xl font-bold mb-6 border-b border-green-900 pb-2">Account Overview</h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                <!-- Account Summary -->
+                                <div class="bg-gray-900 bg-opacity-50 rounded-lg p-4">
+                                    <h3 class="font-bold mb-2 flex items-center">
+                                        <i class="fas fa-user-circle mr-2 text-green-400"></i> Account Details
+                                    </h3>
+                                    <div class="text-gray-400">
+                                        <p class="mb-1"><span class="text-white">Username:</span> <span id="overview-username">Username</span></p>
+                                        <p class="mb-1"><span class="text-white">Email:</span> <span id="overview-email">user@encrypted.net</span></p>
+                                        <p class="mb-1"><span class="text-white">Member since:</span> <span id="overview-joined">May 21, 2025</span></p>
+                                        <p><span class="text-white">Status:</span> <span class="text-green-400">Active</span></p>
+                                    </div>
+                                    <button class="mt-3 text-green-400 hover:text-green-200 transition text-sm" data-section="profile">
+                                        <i class="fas fa-edit mr-1"></i> Edit Profile
+                                    </button>
+                                </div>
+                                
+                                <!-- Recent Activity -->
+                                <div class="bg-gray-900 bg-opacity-50 rounded-lg p-4">
+                                    <h3 class="font-bold mb-2 flex items-center">
+                                        <i class="fas fa-chart-line mr-2 text-green-400"></i> Activity
+                                    </h3>
+                                    <div class="text-gray-400">
+                                        <p class="mb-1"><span class="text-white">Last login:</span> <span id="overview-last-login">May 21, 2025</span></p>
+                                        <p class="mb-1"><span class="text-white">Orders:</span> <span id="overview-orders">0</span></p>
+                                        <p><span class="text-white">Wishlist items:</span> <span id="overview-wishlist">0</span></p>
+                                    </div>
+                                    <button class="mt-3 text-green-400 hover:text-green-200 transition text-sm" data-section="orders">
+                                        <i class="fas fa-shopping-cart mr-1"></i> View Orders
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Security Tips -->
+                            <div class="bg-green-900 bg-opacity-20 border border-green-900 rounded-lg p-4">
+                                <h3 class="font-bold mb-2 flex items-center">
+                                    <i class="fas fa-shield-alt mr-2 text-green-400"></i> Security Recommendations
+                                </h3>
+                                <ul class="text-gray-400 space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mr-2 mt-1"></i>
+                                        <span>Enable two-factor authentication for enhanced account security.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mr-2 mt-1"></i>
+                                        <span>Use a unique password that you don't use on other platforms.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-400 mr-2 mt-1"></i>
+                                        <span>Keep your recovery information updated to prevent account lockouts.</span>
+                                    </li>
+                                </ul>
+                                <button class="mt-3 text-green-400 hover:text-green-200 transition text-sm" data-section="security">
+                                    <i class="fas fa-lock mr-1"></i> Security Settings
+                                </button>
+                            </div>
+                        </section>
+
+                        <!-- Profile Settings Section -->
+                        <section id="profile-section" class="account-section hidden">
+                            <h2 class="text-2xl font-bold mb-6 border-b border-green-900 pb-2">Profile Settings</h2>
+                            
+                            <form id="profile-form" class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h3 class="font-bold mb-4">Personal Information</h3>
+                                        
+                                        <div class="space-y-4">
+                                            <div>
+                                                <label for="profile-username" class="block text-sm font-medium mb-1">Username</label>
+                                                <input type="text" id="profile-username" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                                            </div>
+                                            
+                                            <div>
+                                                <label for="profile-display-name" class="block text-sm font-medium mb-1">Display Name</label>
+                                        </div>
+                                        <div>
+                                            <input type="file" id="profile-image-upload" class="hidden" accept="image/*">
+                                            <label for="profile-image-upload" class="bg-green-900 hover:bg-green-800 text-white px-4 py-2 rounded cursor-pointer inline-block transition">
+                                                <i class="fas fa-upload mr-2"></i> Upload Image
+                                            </label>
+                                            <button type="button" id="remove-profile-image" class="bg-red-900 hover:bg-red-800 text-white px-4 py-2 rounded cursor-pointer ml-2 transition">
+                                                <i class="fas fa-trash mr-2"></i> Remove
+                                            </button>
+                                            <p class="text-xs text-gray-400 mt-2">Accepted formats: JPG, PNG, GIF. Max size: 2MB.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="profile-username" class="block mb-2">Username <span class="text-green-500">*</span></label>
+                                        <input type="text" id="profile-username" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600">
+                                    </div>
+                                    <div>
+                                        <label for="profile-display-name" class="block mb-2">Display Name</label>
+                                        <input type="text" id="profile-display-name" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600">
+                                        <p class="text-xs text-gray-400 mt-1">How your name will appear on the marketplace</p>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="profile-email" class="block mb-2">Email <span class="text-green-500">*</span></label>
+                                        <input type="email" id="profile-email" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600">
+                                    </div>
+                                    <div>
+                                        <label for="profile-pgp-key" class="block mb-2">PGP Public Key</label>
+                                        <input type="text" id="profile-pgp-key" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600">
+                                        <p class="text-xs text-gray-400 mt-1">For encrypted communications</p>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label for="profile-bio" class="block mb-2">Bio</label>
+                                    <textarea id="profile-bio" rows="4" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600"></textarea>
+                                </div>
+
+                                <div>
+                                    <label for="profile-preferences" class="block mb-2">Market Preferences</label>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="pref-dark-mode" class="mr-2">
+                                            <label for="pref-dark-mode">Always use dark mode</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="pref-hide-balance" class="mr-2">
+                                            <label for="pref-hide-balance">Hide wallet balance</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="pref-notifications" class="mr-2">
+                                            <label for="pref-notifications">Enable order notifications</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="text-xl font-bold mb-4 mt-8 border-b border-green-900 pb-2">Password</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="profile-current-password" class="block mb-2">Current Password</label>
+                                        <input type="password" id="profile-current-password" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600">
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="profile-new-password" class="block mb-2">New Password</label>
+                                        <input type="password" id="profile-new-password" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600">
+                                    </div>
+                                    <div>
+                                        <label for="profile-confirm-password" class="block mb-2">Confirm New Password</label>
+                                        <input type="password" id="profile-confirm-password" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600">
+                                    </div>
+                                </div>
+                                
+                                <div class="pt-4">
+                                    <button type="submit" class="bg-green-900 hover:bg-green-800 text-white font-bold py-3 px-6 rounded-lg transition">Save Changes</button>
+                                </div>
+                            </form>
+                        </section>
+                        
+                        <!-- Orders Section -->
+                        <section id="orders-section" class="account-section hidden">
+                            <h2 class="text-2xl font-bold mb-6 border-b border-green-900 pb-2">Order History</h2>
+                            
+                            <div id="orders-container" class="space-y-4">
+                                <!-- Sample order - will be dynamically generated -->
+                                <div class="bg-gray-900 bg-opacity-50 rounded-lg p-4 border border-gray-800">
+                                    <div class="flex justify-between items-center border-b border-gray-800 pb-3 mb-3">
+                                        <div>
+                                            <span class="text-green-400 font-bold">Order #ORD-XYZ123</span>
+                                            <span class="text-gray-400 text-sm ml-4">May 15, 2025</span>
+                                        </div>
+                                        <span class="bg-green-900 text-white text-xs px-2 py-1 rounded">Completed</span>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                        <div>
+                                            <h4 class="text-sm font-medium mb-1">Items</h4>
+                                            <p class="text-gray-400">2 products</p>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium mb-1">Total</h4>
+                                            <p class="text-gray-400">0.12 BTC</p>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium mb-1">Shipping</h4>
+                                            <p class="text-gray-400">Encrypted Drop</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex justify-end">
+                                        <button class="bg-green-900 hover:bg-green-800 text-white px-4 py-2 rounded text-sm transition view-order-details" data-order="ORD-XYZ123">
+                                            <i class="fas fa-eye mr-1"></i> VIEW DETAILS
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- No orders message -->
+                                <div id="no-orders-message" class="text-center text-gray-400 py-8 hidden">
+                                    <p class="mb-2">You haven't placed any orders yet.</p>
+                                    <a href="products.html" class="text-green-400 hover:text-green-200 transition">
+                                        <i class="fas fa-shopping-cart mr-1"></i> Browse Products
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <!-- Security Section -->
+                        <section id="security-section" class="account-section hidden">
+                            <h2 class="text-2xl font-bold mb-6 border-b border-green-900 pb-2">Security Settings</h2>
+                            
+                            <div class="space-y-6">
+                                <div class="bg-gray-900 bg-opacity-50 rounded-lg p-4">
+                                    <h3 class="font-bold mb-4">Two-Factor Authentication</h3>
+                                    
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div>
+                                            <p class="mb-1">Enhance your account security by enabling 2FA.</p>
+                                            <p class="text-gray-400 text-sm">Require a verification code when logging in to your account.</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" id="2fa-toggle">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div id="2fa-setup" class="border border-green-900 p-4 rounded hidden">
+                                        <p class="mb-3">Scan this QR code with your authenticator app:</p>
+                                        <div class="bg-white p-2 inline-block mb-3">
+                                            <img src="https://via.placeholder.com/150" alt="2FA QR Code" class="w-32 h-32">
+                                        </div>
+                                        <div>
+                                            <label for="2fa-code" class="block text-sm mb-1">Enter the verification code:</label>
+                                            <div class="flex">
+                                                <input type="text" id="2fa-code" class="w-40 bg-gray-900 border border-gray-800 rounded-l p-3 focus:border-green-400 focus:outline-none">
+                                                <button class="bg-green-900 hover:bg-green-800 text-white px-4 py-3 rounded-r font-bold transition">VERIFY</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gray-900 bg-opacity-50 rounded-lg p-4">
+                                    <h3 class="font-bold mb-4">Login Sessions</h3>
+                                    
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between items-center p-3 bg-gray-800 rounded">
+                                            <div>
+                                                <p class="font-medium">Current Session</p>
+                                                <p class="text-gray-400 text-sm">MacOS - Chrome • Started May 21, 2025</p>
+                                            </div>
+                                            <span class="bg-green-900 text-white text-xs px-2 py-1 rounded">Active</span>
+                                        </div>
+                                        
+                                        <div class="flex justify-between items-center p-3 bg-gray-800 rounded">
+                                            <div>
+                                                <p class="font-medium">iOS Device</p>
+                                                <p class="text-gray-400 text-sm">iOS - Safari • Last active May 18, 2025</p>
+                                            </div>
+                                            <button class="text-red-400 hover:text-red-300 transition text-sm">
+                                                <i class="fas fa-times-circle mr-1"></i> Revoke
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="mt-4 text-red-400 hover:text-red-300 transition text-sm">
+                                        <i class="fas fa-sign-out-alt mr-1"></i> Log Out All Other Sessions
+                                    </button>
+                                </div>
+                                
+                                <div class="bg-gray-900 bg-opacity-50 rounded-lg p-4">
+                                    <h3 class="font-bold mb-4">Account Deletion</h3>
+                                    
+                                    <p class="mb-3">Permanently delete your account and all associated data.</p>
+                                    <button class="bg-red-900 hover:bg-red-800 text-white px-4 py-2 rounded text-sm transition">
+                                        <i class="fas fa-trash-alt mr-1"></i> DELETE ACCOUNT
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <!-- Addresses Section -->
+                        <section id="addresses-section" class="account-section hidden">
+                            <h2 class="text-2xl font-bold mb-6 border-b border-green-900 pb-2">Shipping Addresses</h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6" id="addresses-container">
+                                <!-- Sample address - will be dynamically generated -->
+                                <div class="bg-gray-900 bg-opacity-50 rounded-lg p-4 border border-gray-800 relative">
+                                    <div class="absolute top-3 right-3 flex space-x-2">
+                                        <button class="text-green-400 hover:text-green-200 transition edit-address" data-address-id="1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-400 hover:text-red-300 transition delete-address" data-address-id="1">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <h3 class="font-bold mb-2">Primary Address</h3>
+                                    <div class="text-gray-400">
+                                        <p>John Doe</p>
+                                        <p>123 Hidden Street</p>
+                                        <p>Apt 456</p>
+                                        <p>Cryptoville, CY 98765</p>
+                                        <p class="mt-2">PGP Encrypted Location: Available</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- No addresses message -->
+                                <div id="no-addresses-message" class="text-gray-400 py-4 hidden">
+                                    <p>You haven't added any shipping addresses yet.</p>
+                                </div>
+                            </div>
+                            
+                            <button id="add-address-btn" class="bg-green-900 hover:bg-green-800 text-white px-4 py-2 rounded text-sm transition">
+                                <i class="fas fa-plus mr-1"></i> ADD NEW ADDRESS
+                            </button>
+                            
+                            <!-- Address Form (hidden by default) -->
+                            <div id="address-form-container" class="mt-6 border border-green-900 rounded-lg p-6 hidden">
+                                <h3 class="font-bold mb-4" id="address-form-title">Add New Address</h3>
+                                
+                                <form id="address-form" class="space-y-4">
+                                    <input type="hidden" id="address-id">
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="address-name" class="block text-sm font-medium mb-1">Address Name</label>
+                                            <input type="text" id="address-name" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none" placeholder="e.g. Home, Office, Drop Point">
+                                        </div>
+                                        
+                                        <div>
+                                            <label for="address-recipient" class="block text-sm font-medium mb-1">Recipient Name</label>
+                                            <input type="text" id="address-recipient" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="address-line1" class="block text-sm font-medium mb-1">Address Line 1</label>
+                                        <input type="text" id="address-line1" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="address-line2" class="block text-sm font-medium mb-1">Address Line 2 (Optional)</label>
+                                        <input type="text" id="address-line2" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        <div>
+                                            <label for="address-city" class="block text-sm font-medium mb-1">City</label>
+                                            <input type="text" id="address-city" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                                        </div>
+                                        
+                                        <div>
+                                            <label for="address-state" class="block text-sm font-medium mb-1">State/Province</label>
+                                            <input type="text" id="address-state" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                                        </div>
+                                        
+                                        <div>
+                                            <label for="address-zip" class="block text-sm font-medium mb-1">Postal/ZIP Code</label>
+                                            <input type="text" id="address-zip" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="address-pgp" class="block text-sm font-medium mb-1">PGP Encrypted Location Data (Optional)</label>
+                                        <textarea id="address-pgp" rows="3" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none" placeholder="Paste PGP encrypted location data for maximum security"></textarea>
+                                    </div>
+                                    
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="address-primary" class="rounded text-green-400 focus:ring-0">
+                                        <label for="address-primary" class="ml-2 text-sm">Set as primary address</label>
+                                    </div>
+                                    
+                                    <div class="flex justify-end space-x-4 mt-2">
+                                        <button type="button" id="cancel-address-btn" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded text-sm transition">CANCEL</button>
+                                        <button type="submit" class="bg-green-900 hover:bg-green-800 text-white px-4 py-2 rounded text-sm transition">SAVE ADDRESS</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                        
+                        <!-- Admin Product Management Section -->
+                        <section id="admin-products-section" class="account-section hidden">
+                            <h2 class="text-2xl font-bold mb-6 border-b border-green-900 pb-2">Manage Products</h2>
+                            
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-xl font-bold">Product List</h3>
+                                <button id="add-new-product" class="bg-green-900 hover:bg-green-800 text-white px-4 py-2 rounded-lg transition">
+                                    <i class="fas fa-plus mr-2"></i>Add New Product
+                                </button>
+                            </div>
+                            
+                            <div class="overflow-x-auto">
+                                <table class="w-full border-collapse">
+                                    <thead>
+                                        <tr class="bg-gray-900 bg-opacity-50">
+                                            <th class="text-left p-3 border-b border-green-900">ID</th>
+                                            <th class="text-left p-3 border-b border-green-900">Image</th>
+                                            <th class="text-left p-3 border-b border-green-900">Name</th>
+                                            <th class="text-left p-3 border-b border-green-900">Price</th>
+                                            <th class="text-left p-3 border-b border-green-900">Category</th>
+                                            <th class="text-left p-3 border-b border-green-900">Status</th>
+                                            <th class="text-left p-3 border-b border-green-900">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="product-list">
+                                        <!-- Product list will be populated dynamically -->
+                                        <tr class="border-b border-gray-800">
+                                            <td class="p-3">1</td>
+                                            <td class="p-3">
+                                                <img src="https://via.placeholder.com/50x50/111111/00ff00?text=1" class="w-10 h-10 object-cover rounded" alt="Product">
+                                            </td>
+                                            <td class="p-3">Encrypted Comms Device</td>
+                                            <td class="p-3">0.05 BTC</td>
+                                            <td class="p-3">Security</td>
+                                            <td class="p-3"><span class="px-2 py-1 bg-green-900 bg-opacity-50 text-green-400 rounded-full text-xs">Active</span></td>
+                                            <td class="p-3">
+                                                <div class="flex space-x-2">
+                                                    <button class="text-blue-400 hover:text-blue-300 transition edit-product" data-id="1">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="text-red-400 hover:text-red-300 transition delete-product" data-id="1">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-b border-gray-800">
+                                            <td class="p-3">2</td>
+                                            <td class="p-3">
+                                                <img src="https://via.placeholder.com/50x50/111111/00ff00?text=2" class="w-10 h-10 object-cover rounded" alt="Product">
+                                            </td>
+                                            <td class="p-3">Anonymous VPN</td>
+                                            <td class="p-3">0.02 BTC</td>
+                                            <td class="p-3">Software</td>
+                                            <td class="p-3"><span class="px-2 py-1 bg-green-900 bg-opacity-50 text-green-400 rounded-full text-xs">Active</span></td>
+                                            <td class="p-3">
+                                                <div class="flex space-x-2">
+                                                    <button class="text-blue-400 hover:text-blue-300 transition edit-product" data-id="2">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="text-red-400 hover:text-red-300 transition delete-product" data-id="2">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- Product Form (hidden by default) -->
+                            <div id="product-form-container" class="hidden mt-8 bg-gray-900 bg-opacity-50 p-6 rounded-lg border border-green-900">
+                                <h3 id="product-form-title" class="text-xl font-bold mb-6">Add New Product</h3>
+                                
+                                <form id="product-form" class="space-y-6">
+                                    <input type="hidden" id="product-id">
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label for="product-name" class="block mb-2">Product Name <span class="text-green-500">*</span></label>
+                                            <input type="text" id="product-name" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600">
+                                        </div>
+                                        <div>
+                                            <label for="product-price" class="block mb-2">Price (BTC) <span class="text-green-500">*</span></label>
+                                            <input type="number" step="0.001" id="product-price" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600">
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="product-image" class="block mb-2">Image URL</label>
+                                        <input type="text" id="product-image" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600">
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label for="product-category" class="block mb-2">Category</label>
+                                            <select id="product-category" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600">
+                                                <option value="security">Security</option>
+                                                <option value="software">Software</option>
+                                                <option value="hardware">Hardware</option>
+                                                <option value="service">Service</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label for="product-status" class="block mb-2">Status</label>
+                                            <select id="product-status" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600">
+                                                <option value="active">Active</option>
+                                                <option value="draft">Draft</option>
+                                                <option value="out-of-stock">Out of Stock</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="product-description" class="block mb-2">Description</label>
+                                        <textarea id="product-description" rows="5" class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 focus:outline-none focus:border-green-600"></textarea>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="product-featured" class="mr-2">
+                                            <label for="product-featured">Featured Product</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="product-digital" class="mr-2">
+                                            <label for="product-digital">Digital Product</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="product-requires-pgp" class="mr-2">
+                                            <label for="product-requires-pgp">Requires PGP</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex space-x-4">
+                                        <button type="button" id="cancel-product-form" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition">
+                                            Cancel
+                                        </button>
+                                        <button type="submit" class="bg-green-900 hover:bg-green-800 text-white px-6 py-2 rounded-lg transition">
+                                            Save Product
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                        
+                        <!-- Admin Vendor Management Section -->
+                        <section id="admin-vendors-section" class="account-section hidden">
+                            <h2 class="text-2xl font-bold mb-6 border-b border-green-900 pb-2">Manage Vendors</h2>
+                            
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-xl font-bold">Vendor List</h3>
+                                <button id="add-new-vendor" class="bg-green-900 hover:bg-green-800 text-white px-4 py-2 rounded-lg transition">
+                                    <i class="fas fa-plus mr-2"></i>Add New Vendor
+                                </button>
+                            </div>
+                            
+                            <div class="overflow-x-auto">
+                                <table class="w-full border-collapse">
+                                    <thead>
+                                        <tr class="bg-gray-900 bg-opacity-50">
+                                            <th class="text-left p-3 border-b border-green-900">ID</th>
+                                            <th class="text-left p-3 border-b border-green-900">Logo</th>
+                                            <th class="text-left p-3 border-b border-green-900">Name</th>
+                                            <th class="text-left p-3 border-b border-green-900">Products</th>
+                                            <th class="text-left p-3 border-b border-green-900">Rating</th>
+                                            <th class="text-left p-3 border-b border-green-900">Status</th>
+                                            <th class="text-left p-3 border-b border-green-900">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="vendor-list">
+                                        <!-- Vendor list will be populated dynamically -->
+                                        <tr class="border-b border-gray-800">
+                                            <td class="p-3">1</td>
+                                            <td class="p-3">
+                                                <img src="https://via.placeholder.com/50x50/111111/00ff00?text=V1" class="w-10 h-10 object-cover rounded-full" alt="Vendor">
+                                            </td>
+                                            <td class="p-3">CryptoSecure</td>
+                                            <td class="p-3">12</td>
+                                            <td class="p-3">4.9/5</td>
+                                            <td class="p-3"><span class="px-2 py-1 bg-green-900 bg-opacity-50 text-green-400 rounded-full text-xs">Verified</span></td>
+                                            <td class="p-3">
+                                                <div class="flex space-x-2">
+                                                    <button class="text-blue-400 hover:text-blue-300 transition edit-vendor" data-id="1">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="text-red-400 hover:text-red-300 transition delete-vendor" data-id="1">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-b border-gray-800">
+                                            <td class="p-3">2</td>
+                                            <td class="p-3">
+                                                <img src="https://via.placeholder.com/50x50/111111/00ff00?text=V2" class="w-10 h-10 object-cover rounded-full" alt="Vendor">
+                                            </td>
+                                            <td class="p-3">Phantom Digital</td>
+                                            <td class="p-3">8</td>
+                                            <td class="p-3">4.7/5</td>
+                                            <td class="p-3"><span class="px-2 py-1 bg-green-900 bg-opacity-50 text-green-400 rounded-full text-xs">Verified</span></td>
+                                            <td class="p-3">
+                                                <div class="flex space-x-2">
+                                                    <button class="text-blue-400 hover:text-blue-300 transition edit-vendor" data-id="2">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="text-red-400 hover:text-red-300 transition delete-vendor" data-id="2">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        
+                        <!-- Admin User Management Section -->
+                        <section id="admin-users-section" class="account-section hidden">
+                            <h2 class="text-2xl font-bold mb-6 border-b border-green-900 pb-2">Manage Users</h2>
+                            
+                            <div class="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="relative col-span-2">
+                                    <input type="text" id="user-search" placeholder="Search users..." class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 pr-10 focus:outline-none focus:border-green-600">
+                                    <button class="absolute right-0 top-0 h-full px-4 text-green-400">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button id="export-users-btn" class="bg-green-900 hover:bg-green-800 text-white px-3 py-2 rounded transition flex items-center">
+                                        <i class="fas fa-download mr-2"></i> Esporta Utenti
+                                    </button>
+                                    <label for="import-users-file" class="bg-blue-900 hover:bg-blue-800 text-white px-3 py-2 rounded transition flex items-center cursor-pointer">
+                                        <i class="fas fa-upload mr-2"></i> Importa Utenti
+                                    </label>
+                                    <input type="file" id="import-users-file" class="hidden" accept=".txt,.json">
+                                </div>
+                            </div>
+                            
+                            <div class="overflow-x-auto">
+                                <table class="w-full border-collapse">
+                                    <thead>
+                                        <tr class="bg-gray-900 bg-opacity-50">
+                                            <th class="text-left p-3 border-b border-green-900">User</th>
+                                            <th class="text-left p-3 border-b border-green-900">Joined</th>
+                                            <th class="text-left p-3 border-b border-green-900">Last Login</th>
+                                            <th class="text-left p-3 border-b border-green-900">Status</th>
+                                            <th class="text-left p-3 border-b border-green-900">Role</th>
+                                            <th class="text-left p-3 border-b border-green-900">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="users-table-body">
+                                        <!-- User list will be populated dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- User Edit Form (hidden by default) -->
+                            <div id="user-form-container" class="hidden mt-8 bg-gray-900 bg-opacity-50 p-6 rounded-lg border border-green-900">
+                                <h3 id="user-form-title" class="text-xl font-bold mb-6">Edit User</h3>
+                                
+                                <form id="user-form" class="space-y-6">
+                                    <input type="hidden" id="user-id">
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label for="user-username" class="block text-sm font-medium mb-1">Username</label>
+                                            <input type="text" id="user-username" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                                        </div>
+                                        
+                                        <div>
+                                            <label for="user-email" class="block text-sm font-medium mb-1">Email</label>
+                                            <input type="email" id="user-email" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none" readonly style="opacity: 0.7; cursor: not-allowed;">
+                                            <small class="text-gray-500 mt-1 block">L'email non può essere modificata</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="user-admin" class="mr-2">
+                                            <label for="user-admin">Administrator</label>
+                                        </div>
+                                        
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="user-blocked" class="mr-2">
+                                            <label for="user-blocked">Blocked</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex space-x-4">
+                                        <button type="button" id="cancel-user-form" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition">
+                                            Cancel
+                                        </button>
+                                        <button type="submit" class="bg-green-900 hover:bg-green-800 text-white px-6 py-2 rounded-lg transition">
+                                            Save User
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                        
+                        <!-- Admin Orders Management Section -->
+                        <section id="admin-orders-section" class="account-section hidden">
+                            <h2 class="text-2xl font-bold mb-6 border-b border-green-900 pb-2">All Orders</h2>
+                            
+                            <div class="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg border border-green-900 text-center">
+                                    <h3 class="font-bold text-lg">Total Orders</h3>
+                                    <p class="text-2xl text-green-400 mt-2">24</p>
+                                </div>
+                                <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg border border-green-900 text-center">
+                                    <h3 class="font-bold text-lg">Pending</h3>
+                                    <p class="text-2xl text-yellow-400 mt-2">5</p>
+                                </div>
+                                <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg border border-green-900 text-center">
+                                    <h3 class="font-bold text-lg">Completed</h3>
+                                    <p class="text-2xl text-green-400 mt-2">18</p>
+                                </div>
+                                <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg border border-green-900 text-center">
+                                    <h3 class="font-bold text-lg">Issues</h3>
+                                    <p class="text-2xl text-red-400 mt-2">1</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <div class="relative">
+                                    <input type="text" id="order-search" placeholder="Search orders by ID, customer, or product..." class="w-full bg-gray-900 border border-green-900 rounded-lg px-4 py-3 pr-10 focus:outline-none focus:border-green-600">
+                                    <button class="absolute right-0 top-0 h-full px-4 text-green-400">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="overflow-x-auto">
+                                <table class="w-full border-collapse">
+                                    <thead>
+                                        <tr class="bg-gray-900 bg-opacity-50">
+                                            <th class="text-left p-3 border-b border-green-900">Order ID</th>
+                                            <th class="text-left p-3 border-b border-green-900">Customer</th>
+                                            <th class="text-left p-3 border-b border-green-900">Products</th>
+                                            <th class="text-left p-3 border-b border-green-900">Total</th>
+                                            <th class="text-left p-3 border-b border-green-900">Date</th>
+                                            <th class="text-left p-3 border-b border-green-900">Status</th>
+                                            <th class="text-left p-3 border-b border-green-900">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-order-list">
+                                        <!-- Order list will be populated dynamically -->
+                                        <tr class="border-b border-gray-800">
+                                            <td class="p-3">ORD-1001</td>
+                                            <td class="p-3">cryptouser1</td>
+                                            <td class="p-3">Encrypted Comms Device</td>
+                                            <td class="p-3">0.05 BTC</td>
+                                            <td class="p-3">May 20, 2025</td>
+                                            <td class="p-3"><span class="px-2 py-1 bg-yellow-900 bg-opacity-50 text-yellow-400 rounded-full text-xs">Pending</span></td>
+                                            <td class="p-3">
+                                                <div class="flex space-x-2">
+                                                    <button class="text-blue-400 hover:text-blue-300 transition view-order" data-id="ORD-1001">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="text-green-400 hover:text-green-300 transition update-order-status" data-id="ORD-1001">
+                                                        <i class="fas fa-cog"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-b border-gray-800">
+                                            <td class="p-3">ORD-1000</td>
+                                            <td class="p-3">shadowwalker</td>
+                                            <td class="p-3">Anonymous VPN, Identity Package</td>
+                                            <td class="p-3">0.17 BTC</td>
+                                            <td class="p-3">May 19, 2025</td>
+                                            <td class="p-3"><span class="px-2 py-1 bg-green-900 bg-opacity-50 text-green-400 rounded-full text-xs">Completed</span></td>
+                                            <td class="p-3">
+                                                <div class="flex space-x-2">
+                                                    <button class="text-blue-400 hover:text-blue-300 transition view-order" data-id="ORD-1000">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="text-green-400 hover:text-green-300 transition update-order-status" data-id="ORD-1000">
+                                                        <i class="fas fa-cog"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md p-8 relative">
+            <button id="close-login" class="absolute top-4 right-4 text-gray-400 hover:text-green-400">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-secret text-2xl text-green-400"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Secure Login</h2>
+                <p class="text-gray-400 text-sm mt-2">All connections encrypted with AES-256</p>
+            </div>
+            
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label for="login-username" class="block text-sm font-medium mb-1">USERNAME</label>
+                    <input type="text" id="login-username" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label for="login-password" class="block text-sm font-medium mb-1">PASSWORD</label>
+                    <input type="password" id="login-password" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" class="rounded text-green-400 focus:ring-0">
+                        <label for="remember" class="ml-2 text-sm">Remember me</label>
+                    </div>
+                    <a href="#" class="text-sm text-green-400 hover:text-green-200">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="w-full bg-green-900 hover:bg-green-800 text-white p-3 rounded-lg font-bold transition mt-2">
+                    SECURE LOGIN
+                </button>
+                
+                <div class="text-center text-sm mt-4">
+                    <span class="text-gray-400">Need an account?</span>
+                    <button type="button" id="switch-to-register" class="text-green-400 hover:text-green-200 ml-1">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Register Modal -->
+    <div id="register-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="bg-black border border-green-900 rounded-lg w-full max-w-md p-8 relative">
+            <button id="close-register" class="absolute top-4 right-4 text-gray-400 hover:text-green-400">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-plus text-2xl text-green-400"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Secure Registration</h2>
+                <p class="text-gray-400 text-sm mt-2">Create an anonymous account with zero tracking</p>
+            </div>
+            
+            <form id="register-form" class="space-y-4">
+                <div>
+                    <label for="register-username" class="block text-sm font-medium mb-1">USERNAME</label>
+                    <input type="text" id="register-username" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label for="register-email" class="block text-sm font-medium mb-1">EMAIL (ENCRYPTED)</label>
+                    <input type="email" id="register-email" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label for="register-password" class="block text-sm font-medium mb-1">PASSWORD</label>
+                    <input type="password" id="register-password" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label for="register-confirm-password" class="block text-sm font-medium mb-1">CONFIRM PASSWORD</label>
+                    <input type="password" id="register-confirm-password" class="w-full bg-gray-900 border border-gray-800 rounded p-3 focus:border-green-400 focus:outline-none">
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="terms" class="rounded text-green-400 focus:ring-0">
+                    <label for="terms" class="ml-2 text-sm">I agree to the <a href="#" class="text-green-400 hover:text-green-200">Terms & Conditions</a></label>
+                </div>
+                
+                <button type="submit" class="w-full bg-green-900 hover:bg-green-800 text-white p-3 rounded-lg font-bold transition mt-2">
+                    CREATE SECURE ACCOUNT
+                </button>
+                
+                <div class="text-center text-sm mt-4">
+                    <span class="text-gray-400">Already have an account?</span>
+                    <button type="button" id="switch-to-login" class="text-green-400 hover:text-green-200 ml-1">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 bg-black bg-opacity-95 z-50 hidden">
+        <div class="container mx-auto px-4 py-16">
+            <div class="flex justify-end mb-8">
+                <button id="close-search" class="text-gray-400 hover:text-green-400 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-4 text-center">ENCRYPTED SEARCH</h2>
+                    <div class="relative">
+                        <input type="text" placeholder="Search for products, vendors, categories..." class="w-full bg-black border-b-2 border-green-400 py-3 px-4 text-xl focus:outline-none">
+                        <button class="absolute right-0 top-0 h-full px-4 text-green-400">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="font-bold mb-3 border-b border-green-900 pb-2">POPULAR SEARCHES</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Encrypted Communications</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Anonymous VPN</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Identity Protection</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Secure Messaging</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-bold mb-3 border-b border-green-900 pb-2">CATEGORIES</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Security Devices</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Encryption Tools</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Privacy Software</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Secure Hardware</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-bold mb-3 border-b border-green-900 pb-2">VENDORS</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">CryptoSecure</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">Phantom Digital</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">BlackNet Systems</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-green-400 transition">ShadowTech</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-black border-l border-green-900 transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-4 h-full flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">YOUR CART</h2>
+                <button id="close-cart" class="text-gray-400 hover:text-green-400">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="flex-grow overflow-auto">
+                <!-- Cart items will be dynamically added here -->
+                <div class="text-center text-gray-400 py-8">
+                    Your cart is empty
+                </div>
+            </div>
+            
+            <div class="border-t border-green-900 pt-4 mt-auto">
+                <div class="flex justify-between mb-2">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">0.00 BTC</span>
+                </div>
+                <a href="checkout.html" class="block bg-green-900 hover:bg-green-800 text-white text-center rounded-lg py-3 font-bold transition mt-2">
+                    SECURE CHECKOUT
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/account.js"></script>
+    <script src="../js/users-manager.js"></script>
+</body>
+</html>

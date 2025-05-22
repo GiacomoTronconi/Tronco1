@@ -1,0 +1,28 @@
+[
+  {
+    "id": "1747918420694",
+    "username": "Tronco",
+    "email": "giacomotronconi@icloud.com",
+    "password": "Giacomo2007@",
+    "isAdmin": false,
+    "registrationDate": "2025-05-22T12:53:40.694Z",
+    "lastLogin": "2025-05-22T12:53:40.695Z",
+    "joined": "22/05/2025",
+    "orders": [],
+    "addresses": [],
+    "isLoggedIn": true
+  },
+  {
+    "id": "1747918463882",
+    "username": "Moli",
+    "email": "Alessandro@gmail.com",
+    "password": "Giacomo2007@",
+    "isAdmin": false,
+    "registrationDate": "2025-05-22T12:54:23.882Z",
+    "lastLogin": "2025-05-22T12:54:23.882Z",
+    "joined": "22/05/2025",
+    "orders": [],
+    "addresses": [],
+    "isLoggedIn": true
+  }
+]
