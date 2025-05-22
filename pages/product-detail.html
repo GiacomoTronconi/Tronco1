@@ -43,6 +43,28 @@
                     <button id="register-btn" class="text-green-400 hover:text-green-200 transition">
                         <i class="fas fa-user-plus mr-1"></i> REGISTER
                     </button>
+                    <a href="account.html" id="account-link" class="text-green-400 hover:text-green-200 transition hidden">
+                        <i class="fas fa-user-circle mr-1"></i> ACCOUNT
+                    </a>
+                    <div class="relative hidden" id="user-menu-btn">
+                        <button class="text-green-400 hover:text-green-200 transition flex items-center">
+                            <i class="fas fa-user-circle mr-1"></i>
+                            <span id="username-display">User</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div id="account-dropdown" class="absolute right-0 mt-2 w-48 bg-black border border-green-900 rounded-lg shadow-lg py-2 hidden z-50">
+                            <a href="account.html" class="block px-4 py-2 text-green-400 hover:bg-green-900 hover:bg-opacity-30">
+                                <i class="fas fa-user-circle mr-2"></i> Il mio account
+                            </a>
+                            <a href="orders.html" class="block px-4 py-2 text-green-400 hover:bg-green-900 hover:bg-opacity-30">
+                                <i class="fas fa-shopping-bag mr-2"></i> I miei ordini
+                            </a>
+                            <div class="border-t border-green-900 my-2"></div>
+                            <button id="logout-btn" class="w-full text-left block px-4 py-2 text-green-400 hover:bg-green-900 hover:bg-opacity-30">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                            </button>
+                        </div>
+                    </div>
                     <button id="cart-btn" class="relative text-green-400 hover:text-green-200 transition">
                         <i class="fas fa-shopping-basket mr-1"></i> CART
                         <span id="cart-count" class="absolute -top-2 -right-2 bg-green-900 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
@@ -61,6 +83,16 @@
                         <a href="products.html" class="text-green-400 hover:text-green-200 transition py-2">PRODUCTS</a>
                         <a href="categories.html" class="text-green-400 hover:text-green-200 transition py-2">CATEGORIES</a>
                         <a href="vendors.html" class="text-green-400 hover:text-green-200 transition py-2">VENDORS</a>
+                        <div class="border-t border-green-900 my-2"></div>
+                        <button id="mobile-login-btn" class="text-green-400 hover:text-green-200 transition py-2 text-left">
+                            <i class="fas fa-user-secret mr-2"></i> LOGIN
+                        </button>
+                        <button id="mobile-register-btn" class="text-green-400 hover:text-green-200 transition py-2 text-left">
+                            <i class="fas fa-user-plus mr-2"></i> REGISTER
+                        </button>
+                        <a href="account.html" id="mobile-account-link" class="text-green-400 hover:text-green-200 transition py-2 hidden">
+                            <i class="fas fa-user-circle mr-2"></i> ACCOUNT
+                        </a>
                     </div>
                 </div>
             </div>
@@ -554,6 +586,8 @@
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script src="../js/auth-modals.js"></script>
     <script src="../js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

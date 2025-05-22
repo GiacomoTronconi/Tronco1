@@ -438,9 +438,12 @@ class AuthModals {
     constructor() {
         this.apiUrl = '/api'; // URL relativo per funzionare in produzione
         this.currentUser = null;
-        this.init();
-        // Verifica lo stato di login all'avvio
+        
+        // Verifica lo stato di login all'avvio (prima di init)
         this.checkLoginStatus();
+        
+        // Inizializza l'interfaccia utente dopo aver verificato lo stato di login
+        this.init();
     }
     
     init() {
@@ -705,7 +708,7 @@ class AuthModals {
      */
     /**
      * Verifica lo stato di login dell'utente all'avvio dell'applicazione
-     * Questo garantisce che lo stato di login persista tra i ricaricamenti della pagina
+     * Questo garantisce che lo stato di login persista tra i ricaricamenti della pagina e tra sessioni diverse
      */
     checkLoginStatus() {
         try {
@@ -717,11 +720,23 @@ class AuthModals {
                 if (this.currentUser && this.currentUser.isLoggedIn) {
                     console.log('Utente già loggato:', this.currentUser.username);
                     
-                    // Aggiorna subito l'interfaccia
-                    this.updateAuthUI();
+                    // Verifica la data di login per la persistenza tra sessioni
+                    const loginTime = new Date(this.currentUser.loginTime || 0);
+                    const currentTime = new Date();
+                    const daysPassed = (currentTime - loginTime) / (1000 * 60 * 60 * 24);
                     
-                    // Ricarica i dati freschi dal server per l'utente corrente (opzionale)
-                    this.refreshUserData();
+                    // Imposta un periodo di validità del login (es. 30 giorni)
+                    if (daysPassed > 30) {
+                        console.log('Sessione scaduta, richiesto nuovo login');
+                        localStorage.removeItem('currentUser');
+                        this.currentUser = null;
+                    } else {
+                        // Aggiorna subito l'interfaccia
+                        this.updateAuthUI();
+                        
+                        // Ricarica i dati freschi dal server per l'utente corrente (opzionale)
+                        this.refreshUserData();
+                    }
                 } else {
                     console.log('Nessun utente loggato');
                     // Pulisci localStorage se c'è un utente non loggato
@@ -754,6 +769,7 @@ class AuthModals {
             // Per il mobile menu
             const mobileLoginBtn = document.getElementById('mobile-login-btn');
             const mobileRegisterBtn = document.getElementById('mobile-register-btn');
+            const mobileAccountLink = document.getElementById('mobile-account-link');
             
             // Per il menu desktop
             const loginBtn = document.getElementById('login-btn');
@@ -771,12 +787,16 @@ class AuthModals {
                 // Gestisci anche i pulsanti mobile
                 if (mobileLoginBtn) mobileLoginBtn.classList.add('hidden');
                 if (mobileRegisterBtn) mobileRegisterBtn.classList.add('hidden');
+                if (mobileAccountLink) mobileAccountLink.classList.remove('hidden');
                 
                 // If there's a username display element, update it
                 const usernameDisplay = document.getElementById('username-display');
                 if (usernameDisplay) {
                     usernameDisplay.textContent = user.username;
                 }
+                
+                // Aggiorna il menu utente (se presente)
+                this.updateUserMenu(user);
             } else {
                 // User is not logged in - mostra login/register, nascondi account
                 if (loginBtn) loginBtn.classList.remove('hidden');
@@ -787,9 +807,44 @@ class AuthModals {
                 // Gestisci anche i pulsanti mobile
                 if (mobileLoginBtn) mobileLoginBtn.classList.remove('hidden');
                 if (mobileRegisterBtn) mobileRegisterBtn.classList.remove('hidden');
+                if (mobileAccountLink) mobileAccountLink.classList.add('hidden');
             }
         } catch (error) {
             console.error('Error updating auth UI:', error);
+        }
+    }
+    
+    /**
+     * Aggiorna il menu utente con le informazioni corrette
+     * @param {Object} user - L'utente attualmente loggato
+     */
+    updateUserMenu(user) {
+        if (!user) return;
+        
+        // Aggiorna il nome utente nel menu dropdown (se presente)
+        const userMenuUsername = document.getElementById('user-menu-username');
+        if (userMenuUsername) {
+            userMenuUsername.textContent = user.username;
+        }
+        
+        // Aggiorna il link all'account nel menu desktop
+        const accountLink = document.getElementById('account-link');
+        if (accountLink) {
+            accountLink.href = 'pages/account.html';
+            // Se siamo già nella cartella pages, aggiusta il percorso
+            if (window.location.pathname.includes('/pages/')) {
+                accountLink.href = 'account.html';
+            }
+        }
+        
+        // Aggiorna il link all'account nel menu mobile
+        const mobileAccountLink = document.getElementById('mobile-account-link');
+        if (mobileAccountLink) {
+            mobileAccountLink.href = 'pages/account.html';
+            // Se siamo già nella cartella pages, aggiusta il percorso
+            if (window.location.pathname.includes('/pages/')) {
+                mobileAccountLink.href = 'account.html';
+            }
         }
     }
     
@@ -1064,29 +1119,29 @@ class QuickViewModal {
             this.init();
         }
     }
-    
+
     init() {
-        // Setup quick view buttons
-        document.querySelectorAll('.quick-view-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const id = button.getAttribute('data-id');
-                const name = button.getAttribute('data-name');
-                const price = button.getAttribute('data-price');
-                const img = button.getAttribute('data-img');
-                const desc = button.getAttribute('data-desc');
-                
+        const quickViewButtons = document.querySelectorAll('.quick-view-btn');
+        const closeBtn = document.getElementById('close-quick-view');
+
+        quickViewButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.getAttribute('data-id');
+                const name = btn.getAttribute('data-name');
+                const price = btn.getAttribute('data-price');
+                const img = btn.getAttribute('data-img');
+                const desc = btn.getAttribute('data-desc');
+
                 this.openQuickView(id, name, price, img, desc);
             });
         });
-        
-        // Close button
-        const closeBtn = this.modal.querySelector('#close-quick-view');
+
         if (closeBtn) {
             closeBtn.addEventListener('click', () => {
                 this.modal.classList.add('hidden');
             });
         }
-        
+
         // Close on background click
         this.modal.addEventListener('click', (e) => {
             if (e.target === this.modal) {
@@ -1633,36 +1688,60 @@ function setupModalEscapeKey(modalId) {
  * This is the main entry point for the application
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize all components
+    console.log('Initializing application...');
+    
+    // Initialize Matrix background
     initMatrix();
+    
+    // Show loading screen for first visit
     initLoadingScreen();
+    
+    // Initialize authentication modals
+    window.authModals = new AuthModals();
+    
+    // Initialize shopping cart
+    new ShoppingCart();
+    
+    // Initialize search overlay
+    new SearchOverlay();
+    
+    // Initialize mobile menu
     initMobileMenu();
     
-    // Initialize UI components
-    new ShoppingCart();
-    new AuthModals();
-    new SearchOverlay();
-    new ProductGallery('.product-gallery');
+    // Initialize product tabs if we're on the product detail page
+    if (document.querySelector('.product-tabs')) {
+        initProductTabs();
+    }
+    
+    // Initialize product gallery if available
+    const productGallery = document.querySelector('.product-gallery');
+    if (productGallery) {
+        new ProductGallery('.product-gallery');
+    }
+    
+    // Initialize Quick View modal
     new QuickViewModal();
     
-    // Setup modal closing behaviors
-    setupModalOutsideClick('login-modal');
-    setupModalOutsideClick('register-modal');
-    setupModalOutsideClick('quick-view-modal');
-    setupModalEscapeKey('login-modal');
-    setupModalEscapeKey('register-modal');
-    setupModalEscapeKey('quick-view-modal');
-    
     // Initialize checkout process if on checkout page
-    if (document.querySelector('.checkout-progress')) {
+    if (document.getElementById('checkout-container')) {
         new CheckoutProcess();
     }
     
-    // Product tabs (if on product detail page)
-    initProductTabs();
-    
-    // Handle URL parameters for dynamic content
+    // Process URL parameters for dynamic content
     handleURLParameters();
+    
+    // Aggiunge il listener per il logout
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            // Rimuovi l'utente da localStorage
+            localStorage.removeItem('currentUser');
+            // Reindirizza alla home
+            window.location.href = window.location.pathname.includes('/pages/') ? '../index.html' : 'index.html';
+        });
+    }
+    
+    console.log('Application initialized successfully!');
 });
 
 /**
